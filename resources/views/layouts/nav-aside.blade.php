@@ -325,7 +325,8 @@
                         <li><a href="{{ route('admin.settings.feature') }}" class="slide-item">{{ __('Features Section') }}</a></li>                      
                         <li><a href="{{ route('admin.settings.review') }}" class="slide-item">{{ __('Reviews Manager') }}</a></li>                      
                         <li><a href="{{ route('admin.settings.blog') }}" class="slide-item">{{ __('Blogs Manager') }}</a></li>
-                        <li><a href="{{ route('admin.settings.faq') }}" class="slide-item">{{ __('FAQs Manager') }}</a></li>                        
+                        <li><a href="{{ route('admin.settings.faq') }}" class="slide-item">{{ __('FAQs Manager') }}</a></li>     
+                        <li><a href="{{ route('admin.page-builder.index') }}" class="slide-item">{{ __('Page Builder') }}</a></li>                   
                         <li><a href="{{ route('admin.settings.about') }}" class="slide-item">{{ __('About Us Page') }}</a></li>                           
                         <li><a href="{{ route('admin.settings.terms') }}" class="slide-item">{{ __('T&C Pages') }}</a></li>                           
                         <li><a href="{{ route('admin.settings.adsense') }}" class="slide-item">{{ __('Google Adsense') }}</a></li>                           
