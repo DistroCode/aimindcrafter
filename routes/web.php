@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\Admin\PageBuilderController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LocaleController;
@@ -118,6 +118,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/about', 'aboutUs')->name('about');
     Route::get('/terms-and-conditions', 'termsAndConditions')->name('terms');
     Route::get('/privacy-policy', 'privacyPolicy')->name('privacy');
+    Route::get('/{slug}', 'pageBuilder')->name('page-builder.show');
     Route::get('/unsubscribe', 'showUnsubscribe')->name('email.unsubscribe.show');
     Route::post('/unsubscribe/process/{email}', 'unsubscribe')->name('email.unsubscribe.process');
 });
@@ -503,6 +504,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified', '2fa.verify', 'r
         Route::put('/settings/faqs/{id}', 'update')->name('admin.settings.faq.update');		
         Route::get('/settings/faqs/{id}/edit', 'edit')->name('admin.settings.faq.edit');        
         Route::post('/settings/faq/delete', 'delete');
+    });
+        // ADMIN PAGE BUILDER
+    Route::controller(PageBuilderController::class)->group(function () {
+        Route::get('/page-builder', 'index')->name('admin.page-builder.index');
+        Route::get('/page-builder/create', 'create')->name('admin.page-builder.create');
+        Route::post('/page-builder/store', 'store')->name('admin.page-builder.store');
+        Route::get('/page-builder/edit/{page_builder}', 'edit')->name('admin.page-builder.edit');
+        Route::post('/page-builder/update/{page_builder}', 'update')->name('admin.page-builder.update');
+        Route::get('/page-builder/destroy/{page_builder}', 'destroy')->name('admin.page-builder.destroy');
     });
 
     // ADMIN FRONTEND SETTINGS - REVIEW MANAGER
