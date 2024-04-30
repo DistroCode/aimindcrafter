@@ -64,7 +64,9 @@ class BankTransferService
             'gpt_3_turbo_credits' => $id->gpt_3_turbo_credits,
             'gpt_4_turbo_credits' => $id->gpt_4_turbo_credits,
             'gpt_4_credits' => $id->gpt_4_credits,
-            'claude_3_credits' => $id->claude_3_credits,
+            'claude_3_opus_credits' => $id->claude_3_opus_credits,
+            'claude_3_sonnet_credits' => $id->claude_3_sonnet_credits,
+            'claude_3_haiku_credits' => $id->claude_3_haiku_credits,
             'fine_tune_credits' => $id->fine_tune_credits,
             'dalle_images' => $id->dalle_images,
             'sd_images' => $id->sd_images,
@@ -90,7 +92,9 @@ class BankTransferService
         $record_payment->gpt_3_turbo_credits = $id->gpt_3_turbo_credits;
         $record_payment->gpt_4_turbo_credits = $id->gpt_4_turbo_credits;
         $record_payment->gpt_4_credits = $id->gpt_4_credits;
-        $record_payment->claude_3_credits = $id->claude_3_credits;
+        $record_payment->claude_3_opus_credits = $id->claude_3_opus_credits;
+        $record_payment->claude_3_sonnet_credits = $id->claude_3_sonnet_credits;
+        $record_payment->claude_3_haiku_credits = $id->claude_3_haiku_credits;
         $record_payment->fine_tune_credits = $id->fine_tune_credits;
         $record_payment->dalle_images = $id->dalle_images;
         $record_payment->sd_images = $id->sd_images;

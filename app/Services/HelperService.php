@@ -120,8 +120,12 @@ class HelperService
 
     public static function userAvailableImages()
     {   
-        $value = self::numberFormat(auth()->user()->available_dalle_images + auth()->user()->available_dalle_images_prepaid + auth()->user()->available_sd_images + auth()->user()->available_sd_images_prepaid);
-        return $value;
+        if (auth()->user()->available_dalle_images == -1 || auth()->user()->available_sd_images == -1) {
+            return __('Unlimited');
+        } else {
+            $value = self::numberFormat(auth()->user()->available_dalle_images + auth()->user()->available_dalle_images_prepaid + auth()->user()->available_sd_images + auth()->user()->available_sd_images_prepaid);
+            return $value;
+        }
     }
 
     public static function userPlanTotalImages()

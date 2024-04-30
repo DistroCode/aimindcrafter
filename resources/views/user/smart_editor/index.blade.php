@@ -4071,7 +4071,7 @@
 			success: function (data) {
 				console.log(data)
 				if (data['credits'] != 'Unlimited') {
-					animateValue("balance-number", parseInt(current.replace(/,/g, '')), data['credits'], 300);
+					//animateValue("balance-number", parseInt(current.replace(/,/g, '')), data['credits'], 300);
 				}
 					
 			},

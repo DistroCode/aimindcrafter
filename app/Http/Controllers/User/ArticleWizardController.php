@@ -54,6 +54,7 @@ class ArticleWizardController extends Controller
         }
 
         $fine_tunes = FineTuneModel::all();
+        $default_model = auth()->user()->default_model_template;
 
         # Check user permission to use the feature
         if (auth()->user()->group == 'user') {
@@ -75,7 +76,7 @@ class ArticleWizardController extends Controller
 
                 $wizard = ArticleWizard::find($wizard->id)->toArray();
 
-                return view('user.templates.wizard.index', compact('languages', 'workbooks', 'wizard', 'models', 'fine_tunes'));
+                return view('user.templates.wizard.index', compact('languages', 'workbooks', 'wizard', 'models', 'fine_tunes', 'default_model'));
             }
         } elseif (auth()->user()->group == 'subscriber') {
             $plan = SubscriptionPlan::where('id', auth()->user()->plan_id)->first();
@@ -97,7 +98,7 @@ class ArticleWizardController extends Controller
 
                 $wizard = ArticleWizard::find($wizard->id)->toArray();
 
-                return view('user.templates.wizard.index', compact('languages', 'workbooks', 'wizard', 'models', 'fine_tunes'));
+                return view('user.templates.wizard.index', compact('languages', 'workbooks', 'wizard', 'models', 'fine_tunes', 'default_model'));
             }
         } else {
             $languages = Language::orderBy('languages.language', 'asc')->get();
@@ -114,7 +115,7 @@ class ArticleWizardController extends Controller
 
             $wizard = ArticleWizard::find($wizard->id)->toArray();
 
-            return view('user.templates.wizard.index', compact('languages', 'workbooks', 'wizard', 'models', 'fine_tunes'));
+            return view('user.templates.wizard.index', compact('languages', 'workbooks', 'wizard', 'models', 'fine_tunes', 'default_model'));
         }
         
     }

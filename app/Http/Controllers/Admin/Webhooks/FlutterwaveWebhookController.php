@@ -74,7 +74,9 @@ class FlutterwaveWebhookController extends Controller
                     $record_payment->gpt_3_turbo_credits = $plan->gpt_3_turbo_credits;
                     $record_payment->gpt_4_turbo_credits = $plan->gpt_4_turbo_credits;
                     $record_payment->gpt_4_credits = $plan->gpt_4_credits;
-                    $record_payment->claude_3_credits = $plan->claude_3_credits;
+                    $record_payment->claude_3_opus_credits = $plan->claude_3_opus_credits;
+                    $record_payment->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
+                    $record_payment->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
                     $record_payment->fine_tune_credits = $plan->fine_tune_credits;
                     $record_payment->dalle_images = $plan->dalle_images;
                     $record_payment->sd_images = $plan->sd_images;

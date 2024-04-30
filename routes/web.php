@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\PageBuilderController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LocaleController;
@@ -121,7 +120,6 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/privacy-policy', 'privacyPolicy')->name('privacy');
     Route::get('/unsubscribe', 'showUnsubscribe')->name('email.unsubscribe.show');
     Route::post('/unsubscribe/process/{email}', 'unsubscribe')->name('email.unsubscribe.process');
-    Route::get('/{slug}', 'pageBuilder')->name('page-builder.show');
 });
 
 
@@ -332,7 +330,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified', '2fa.verify', 'r
         Route::put('/finance/plan/{id}', 'update')->name('admin.finance.plan.update');
         Route::get('/finance/plan/{id}/renew', 'renew')->name('admin.finance.plan.renew');
         Route::post('/finance/plan/{id}', 'push')->name('admin.finance.plan.push');
-        Route::post('/finance/plan/delete', 'delete');
+        Route::post('/finance/plan/subscription/delete', 'delete');
     });
 
     // ADMIN FINANCE - PREPAID PLAN ROUTES
@@ -545,15 +543,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified', '2fa.verify', 'r
         Route::post('/settings/clear/symlink', 'symlink')->name('admin.settings.clear.symlink');
     });
 
-    // ADMIN PAGE BUILDER
-    Route::controller(PageBuilderController::class)->group(function () {
-        Route::get('/page-builder', 'index')->name('admin.page-builder.index');
-        Route::get('/page-builder/create', 'create')->name('admin.page-builder.create');
-        Route::post('/page-builder/store', 'store')->name('admin.page-builder.store');
-        Route::get('/page-builder/edit/{page_builder}', 'edit')->name('admin.page-builder.edit');
-        Route::post('/page-builder/update/{page_builder}', 'update')->name('admin.page-builder.update');
-        Route::get('/page-builder/destroy/{page_builder}', 'destroy')->name('admin.page-builder.destroy');
-    });
 
 });
   

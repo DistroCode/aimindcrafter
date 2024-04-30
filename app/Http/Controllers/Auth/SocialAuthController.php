@@ -85,6 +85,8 @@ class SocialAuthController extends Controller
                     $new_user->default_voiceover_language = config('settings.voiceover_default_language');
                     $new_user->default_voiceover_voice = config('settings.voiceover_default_voice');
                     $new_user->default_template_language = config('settings.default_language');
+                    $new_user->default_model_template = config('settings.default_model_user_template');
+                    $new_user->default_model_chat = config('settings.default_model_user_bot');
                     $new_user->job_role = 'Happy Person';
                     $new_user->referral_id = strtoupper(Str::random(15));
                     $user->referred_by = $referrer_id;

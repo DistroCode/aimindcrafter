@@ -292,16 +292,6 @@
 
 									<div class="col-md-6 col-sm-12">							
 										<div class="input-box">								
-											<h6>{{ __('Fine Tuned Model Credits') }} <span class="text-required"><i class="fa-solid fa-asterisk"></i></span> <span class="text-muted ml-3">({{ __('Renewed Monthly') }})</span></h6>
-											<div class="form-group">							    
-												<input type="number" class="form-control" id="fine_tune" name="fine_tune" value="{{ $id->fine_tune_credits }}" placeholder="0">
-												<span class="text-muted fs-10">{{ __('Each text generation task counts output words created') }}. {{ __('Set as -1 for unlimited words') }}. ({{ __('1 credit = 1 word') }}).</span>
-											</div> 
-										</div> 						
-									</div>
-
-									<div class="col-md-6 col-sm-12">							
-										<div class="input-box">								
 											<h6>{{ __('Characters Included') }} <span class="text-required"><i class="fa-solid fa-asterisk"></i></span> <span class="text-muted ml-3">({{ __('Renewed Monthly') }})</span></h6>
 											<div class="form-group">							    
 												<input type="number" class="form-control" id="characters" name="characters" value="{{ $id->characters }}" placeholder="0">

@@ -268,7 +268,7 @@ class EmailNotificationController extends Controller
     public function updateEmail(Email $id)
     {
         request()->validate([
-            'name' => 'name',
+            'name' => 'required',
             'subject' => 'required',
             'message' => 'required',
             'footer' => 'nullable',

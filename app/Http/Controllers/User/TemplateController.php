@@ -1493,18 +1493,15 @@ class TemplateController extends Controller
         # Apply proper model based on role and subsciption
         if (auth()->user()->group == 'user') {
             $models = explode(',', config('settings.free_tier_models'));
-            $default_model = config('settings.default_model_user_template');
         } elseif (!is_null(auth()->user()->plan_id)) {
             $plan = SubscriptionPlan::where('id', auth()->user()->plan_id)->first();
             $models = explode(',', $plan->model);
-            $default_model = '';
         } else {            
             $models = explode(',', config('settings.free_tier_models'));
-            $default_model = config('settings.default_model_admin');
         }
 
         $fine_tunes = FineTuneModel::all();
-
+        $default_model = auth()->user()->default_model_template;
         $brands = BrandVoice::where('user_id', auth()->user()->id)->get();
 
         if (!is_null(auth()->user()->plan_id)) {
@@ -1550,18 +1547,15 @@ class TemplateController extends Controller
         # Apply proper model based on role and subsciption
         if (auth()->user()->group == 'user') {
             $models = explode(',', config('settings.free_tier_models'));
-            $default_model = config('settings.default_model_user_template');
         } elseif (!is_null(auth()->user()->plan_id)) {
             $plan = SubscriptionPlan::where('id', auth()->user()->plan_id)->first();
             $models = explode(',', $plan->model);
-            $default_model = '';
         } else {            
             $models = explode(',', config('settings.free_tier_models'));
-            $default_model = config('settings.default_model_admin');
         }
 
         $fine_tunes = FineTuneModel::all();
-
+        $default_model = auth()->user()->default_model_template;
         $brands = BrandVoice::where('user_id', auth()->user()->id)->get();
 
         if (!is_null(auth()->user()->plan_id)) {

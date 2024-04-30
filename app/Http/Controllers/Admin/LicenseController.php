@@ -59,7 +59,7 @@ class LicenseController extends Controller
 		$this->api_url = 'https://license.berkine.space/';
 		$this->api_key = 'C8799890D43B0990004D';
 		$this->api_language = 'english';
-		$this->current_version = 'v4.9.1';
+		$this->current_version = 'v4.9.2';
 		$this->verify_type = 'envato';
 		$this->verification_period = 365;
 		$this->current_path = realpath(__DIR__);

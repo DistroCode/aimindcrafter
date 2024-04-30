@@ -96,7 +96,16 @@ class UserController extends Controller
         } else {
            $plan = SubscriptionPlan::where('id', auth()->user()->plan_id)->first();
            $vendors = explode(', ', $plan->voiceover_vendors);
+        }
 
+        # Apply proper model based on role and subsciption
+        if (auth()->user()->group == 'user') {
+            $models = explode(',', config('settings.free_tier_models'));
+        } elseif (!is_null(auth()->user()->plan_id)) {
+            $plan = SubscriptionPlan::where('id', auth()->user()->plan_id)->first();
+            $models = explode(',', $plan->model);
+        } else {            
+            $models = explode(',', config('settings.free_tier_models'));
         }
 
         # Set Voice Types
@@ -124,7 +133,7 @@ class UserController extends Controller
 
         $check_api_feature = SubscriptionPlan::where('id', auth()->user()->plan_id)->first();
 
-        return view('user.profile.default', compact('languages', 'voices', 'template_languages', 'check_api_feature'));
+        return view('user.profile.default', compact('languages', 'voices', 'template_languages', 'check_api_feature', 'models'));
     }
 
 
@@ -205,6 +214,8 @@ class UserController extends Controller
             'default_voiceover_voice' => 'nullable|string|max:255',
             'default_voiceover_language' => 'nullable|string|max:255',
             'default_template_language' => 'nullable|string|max:255',
+            'default_model_template' => 'nullable|string|max:255',
+            'default_model_chat' => 'nullable|string|max:255',
         ]));
 
         $user->save();

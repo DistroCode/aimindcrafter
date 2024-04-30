@@ -198,6 +198,8 @@ class RegisteredUserController extends Controller
         $user->default_voiceover_language = config('settings.voiceover_default_language');
         $user->default_voiceover_voice = config('settings.voiceover_default_voice');
         $user->default_template_language = config('settings.default_language');
+        $user->default_model_template = config('settings.default_model_user_template');
+        $user->default_model_chat = config('settings.default_model_user_bot');
         $user->job_role = 'Happy Person';
         $user->referral_id = strtoupper(Str::random(15));
         $user->referred_by = $referrer_id;
@@ -218,7 +220,7 @@ class RegisteredUserController extends Controller
             $user->save();
 
             try {
-                Mail::to($user)->send(new EmailVerification($code));
+                Mail::to($user->email)->send(new EmailVerification($code));
                 toastr()->success(__('Email verification code has been successfully sent'));
             } catch (Exception $e) {
                 toastr()->error(__('SMTP settings are not setup yet, please contact support team'));
@@ -329,6 +331,8 @@ class RegisteredUserController extends Controller
         $user->default_voiceover_language = config('settings.voiceover_default_language');
         $user->default_voiceover_voice = config('settings.voiceover_default_voice');
         $user->default_template_language = config('settings.default_language');
+        $user->default_model_template = config('settings.default_model_user_template');
+        $user->default_model_chat = config('settings.default_model_user_bot');
         $user->job_role = 'Happy Person';
         $user->referral_id = strtoupper(Str::random(15));
         $user->referred_by = $referrer_id;

@@ -40,8 +40,8 @@
 						<div class="col-lg-8 col-md-8 col-sm-12">
 							<div class="row text-center">
 								<div class="col-lg col-md-6 col-sm-6">
-									<h6 class="fs-12 mt-3 font-weight-bold">{{ __('Words Left') }}</h6>
-									<h4 class="mb-3 font-weight-800 text-primary fs-20">@if(auth()->user()->available_words == -1) {{ __('Unlimited') }} @else {{ number_format(auth()->user()->available_words + auth()->user()->available_words_prepaid) }} @endif</h4>										
+									<h6 class="fs-12 mt-3 font-weight-bold">{{ __('GPT 3.5 Turbo ') }} {{ __('Words Left') }}</h6>
+									<h4 class="mb-3 font-weight-800 text-primary fs-20">@if(auth()->user()->gpt_3_turbo_credits == -1) {{ __('Unlimited') }} @else {{ number_format(auth()->user()->gpt_3_turbo_credits + auth()->user()->gpt_3_turbo_credits_prepaid) }} @endif</h4>										
 								</div>
 								@role('user|subscriber|admin')
                     				@if (config('settings.image_feature_user') == 'allow')

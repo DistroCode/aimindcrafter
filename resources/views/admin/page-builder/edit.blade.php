@@ -1,6 +1,12 @@
+
 @extends('layouts.app')
 
 @section('page-header')
+    <style>
+        .tox-promotion {
+            display: none !important;
+        }
+    </style>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <!-- PAGE HEADER-->
     <div class="page-header mt-5-7">

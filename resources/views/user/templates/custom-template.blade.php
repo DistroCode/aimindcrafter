@@ -47,7 +47,7 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="text-left mb-4" id="balance-status">
-								<span class="fs-11 text-muted pl-3"><i class="fa-sharp fa-solid fa-bolt-lightning mr-2 text-primary"></i>{{ __('Your Balance is') }} <span class="font-weight-semibold" id="balance-number">@if (auth()->user()->gpt_3_turbo_credits == -1) {{ __('Unlimited') }} @else {{ number_format(auth()->user()->gpt_3_turbo_credits + auth()->user()->gpt_3_turbo_credits_prepaid) }} {{ __('GPT 3.5 Turbo') }} {{ __('Words') }} @endif</span></span>
+								<span class="fs-11 text-muted pl-3"><i class="fa-sharp fa-solid fa-bolt-lightning mr-2 text-primary"></i>{{ __('Your Balance is') }} <span class="font-weight-semibold" id="balance-number">@if (auth()->user()->gpt_3_turbo_credits == -1) {{ __('Unlimited') }} @else {{ number_format(auth()->user()->gpt_3_turbo_credits + auth()->user()->gpt_3_turbo_credits_prepaid) }} @endif {{ __('GPT 3.5 Turbo') }} {{ __('Words') }}</span></span>
 							</div>							
 						</div>		
 						
@@ -149,14 +149,14 @@
 								<h6 class="fs-11 mb-2 font-weight-semibold">{{ __('AI Model') }}</h6>								
 								<select id="model" name="model" class="form-select">
 									@if ($template->model_mode == 'fixed')
-										@if (trim($model) == 'gpt-3.5-turbo-0125')
-											<option value="{{ trim($model) }}" @if (trim($model) == $default_model) selected @endif>{{ __('GPT 3.5 Turbo') }}</option>
-										@elseif (trim($model) == 'gpt-4')
-											<option value="{{ trim($model) }}" @if (trim($model) == $default_model) selected @endif>{{ __('GPT 4') }}</option>
-										@elseif (trim($model) == 'gpt-4-0125-preview')
-											<option value="{{ trim($model) }}" @if (trim($model) == $default_model) selected @endif>{{ __('GPT 4 Turbo') }}</option>
-										@elseif (trim($model) == 'gpt-4-turbo-2024-04-09')
-											<option value="{{ trim($model) }}" @if (trim($model) == $default_model) selected @endif>{{ __('GPT 4 Turbo with Vision') }}</option>										
+										@if (trim($template->model) == 'gpt-3.5-turbo-0125')
+											<option value="{{ trim($template->model) }}" @if (trim($template->model) == $default_model) selected @endif>{{ __('GPT 3.5 Turbo') }}</option>
+										@elseif (trim($template->model) == 'gpt-4')
+											<option value="{{ trim($template->model) }}" @if (trim($template->model) == $default_model) selected @endif>{{ __('GPT 4') }}</option>
+										@elseif (trim($template->model) == 'gpt-4-0125-preview')
+											<option value="{{ trim($template->model) }}" @if (trim($template->model) == $default_model) selected @endif>{{ __('GPT 4 Turbo') }}</option>
+										@elseif (trim($template->model) == 'gpt-4-turbo-2024-04-09')
+											<option value="{{ trim($template->model) }}" @if (trim($template->model) == $default_model) selected @endif>{{ __('GPT 4 Turbo with Vision') }}</option>										
 										@else
 											@foreach ($fine_tunes as $fine_tune)
 												@if ($template->model == $fine_tune->model)
@@ -410,7 +410,7 @@
 									if (data.status == 'success') {
 										editor.selection.setContent( data.message );
 										document.querySelector('#loader-line')?.classList?.add('hidden'); 
-										calculateCredits();  
+										//calculateCredits();  
 									} else {
 										toastr.warning(data.message);
 										document.querySelector('#loader-line')?.classList?.add('hidden'); 
@@ -450,7 +450,7 @@
 									if (data.status == 'success') {
 										editor.selection.setContent( data.message );
 										document.querySelector('#loader-line')?.classList?.add('hidden'); 
-										calculateCredits();  
+										//calculateCredits();  
 										let count = tinymce.activeEditor.plugins.wordcount.getCount();
 										let words = document.getElementById('total-words-templates');
 										words.innerHTML = count;
@@ -493,7 +493,7 @@
 									if (data.status == 'success') {
 										editor.selection.setContent( data.message );
 										document.querySelector('#loader-line')?.classList?.add('hidden');
-										calculateCredits();   
+										//calculateCredits();   
 										let count = tinymce.activeEditor.plugins.wordcount.getCount();
 										let words = document.getElementById('total-words-templates');
 										words.innerHTML = count;
@@ -536,7 +536,7 @@
 									if (data.status == 'success') {
 										editor.selection.setContent( data.message );
 										document.querySelector('#loader-line')?.classList?.add('hidden'); 
-										calculateCredits();  
+										//calculateCredits();  
 										let count = tinymce.activeEditor.plugins.wordcount.getCount();
 										let words = document.getElementById('total-words-templates');
 										words.innerHTML = count;
@@ -579,7 +579,7 @@
 									if (data.status == 'success') {
 										editor.selection.setContent( data.message );
 										document.querySelector('#loader-line')?.classList?.add('hidden'); 
-										calculateCredits(); 
+										//calculateCredits(); 
 										let count = tinymce.activeEditor.plugins.wordcount.getCount();
 										let words = document.getElementById('total-words-templates');
 										words.innerHTML = count; 
@@ -622,7 +622,7 @@
 									if (data.status == 'success') {
 										editor.selection.setContent( data.message );
 										document.querySelector('#loader-line')?.classList?.add('hidden'); 
-										calculateCredits();  
+										//calculateCredits();  
 										let count = tinymce.activeEditor.plugins.wordcount.getCount();
 										let words = document.getElementById('total-words-templates');
 										words.innerHTML = count;
@@ -665,7 +665,7 @@
 									if (data.status == 'success') {
 										editor.selection.setContent( data.message );
 										document.querySelector('#loader-line')?.classList?.add('hidden'); 
-										calculateCredits(); 
+										//calculateCredits(); 
 										let count = tinymce.activeEditor.plugins.wordcount.getCount();
 										let words = document.getElementById('total-words-templates');
 										words.innerHTML = count; 
@@ -708,7 +708,7 @@
 									if (data.status == 'success') {
 										editor.selection.setContent( data.message );
 										document.querySelector('#loader-line')?.classList?.add('hidden'); 
-										calculateCredits();  
+										//calculateCredits();  
 										let count = tinymce.activeEditor.plugins.wordcount.getCount();
 										let words = document.getElementById('total-words-templates');
 										words.innerHTML = count;
@@ -757,7 +757,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -800,7 +800,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -843,7 +843,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -886,7 +886,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden');
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -929,7 +929,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -972,7 +972,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1015,7 +1015,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden');
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -1058,7 +1058,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1101,7 +1101,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1144,7 +1144,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1187,7 +1187,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1230,7 +1230,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden');
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -1273,7 +1273,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1316,7 +1316,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1359,7 +1359,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1402,7 +1402,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1445,7 +1445,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden');
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -1488,7 +1488,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1531,7 +1531,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1574,7 +1574,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1617,7 +1617,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden');
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -1660,7 +1660,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden');
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -1712,7 +1712,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1755,7 +1755,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1798,7 +1798,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden');
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -1841,7 +1841,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1884,7 +1884,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1934,7 +1934,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -1975,7 +1975,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2016,7 +2016,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden');
-												calculateCredits();   
+												//calculateCredits();   
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2057,7 +2057,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2098,7 +2098,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2138,7 +2138,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2179,7 +2179,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2220,7 +2220,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2261,7 +2261,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2302,7 +2302,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2343,7 +2343,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2384,7 +2384,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2425,7 +2425,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2466,7 +2466,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits(); 
+												//calculateCredits(); 
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -2507,7 +2507,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2548,7 +2548,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2589,7 +2589,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2630,7 +2630,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2671,7 +2671,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2712,7 +2712,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2753,7 +2753,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2794,7 +2794,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2835,7 +2835,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2876,7 +2876,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2917,7 +2917,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2958,7 +2958,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -2999,7 +2999,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3040,7 +3040,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3080,7 +3080,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3121,7 +3121,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden');
-												calculateCredits();   
+												//calculateCredits();   
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3162,7 +3162,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3203,7 +3203,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3244,7 +3244,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3285,7 +3285,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits(); 
+												//calculateCredits(); 
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -3326,7 +3326,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3366,7 +3366,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3407,7 +3407,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden');
-												calculateCredits();   
+												//calculateCredits();   
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3448,7 +3448,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3489,7 +3489,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3530,7 +3530,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits(); 
+												//calculateCredits(); 
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -3571,7 +3571,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits(); 
+												//calculateCredits(); 
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -3612,7 +3612,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3653,7 +3653,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3694,7 +3694,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3735,7 +3735,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits();  
+												//calculateCredits();  
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3776,7 +3776,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden');
-												calculateCredits();   
+												//calculateCredits();   
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count;
@@ -3817,7 +3817,7 @@
 											if (data.status == 'success') {
 												editor.selection.setContent( data.message );
 												document.querySelector('#loader-line')?.classList?.add('hidden'); 
-												calculateCredits(); 
+												//calculateCredits(); 
 												let count = tinymce.activeEditor.plugins.wordcount.getCount();
 												let words = document.getElementById('total-words-templates');
 												words.innerHTML = count; 
@@ -3886,7 +3886,7 @@
 									if (data.status == 'success') {
 										tinymce.activeEditor.setContent( data.message );
 										document.querySelector('#loader-line')?.classList?.add('hidden'); 
-										calculateCredits();  
+										//calculateCredits();  
 										let count = tinymce.activeEditor.plugins.wordcount.getCount();
 										let words = document.getElementById('total-words-templates');
 										words.innerHTML = count;
@@ -4015,7 +4015,7 @@
 								var $body = $(tinymce.activeEditor.getBody());
 								$body.find('p:last').append('<br><br>');
 								document.querySelector('#loader-line')?.classList?.add('hidden');  
-								calculateCredits();  
+								//calculateCredits();  
 								
 							} else if (e.data == '[ERROR]') {
 								console.log(e.data)
@@ -4158,7 +4158,7 @@
 		}
 	}
 
-	function calculateCredits() {
+	function //calculateCredits() {
 
 		let current = document.getElementById('balance-number').innerHTML;
 

@@ -49,7 +49,7 @@
 							<h6 class="fs-12">{{ __('GPT 3.5 Turbo') }} {{ __('Words') }}</h6>
 						</div>
 						<div class="col-sm">
-							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->fine_tune_turbo_credits == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableFineTuneWords() }} @endif</h4>
+							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->fine_tune_credits == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableFineTuneWords() }} @endif</h4>
 							<h6 class="fs-12">{{ __('Fine Tune') }} {{ __('Words') }}</h6>
 						</div>
 					</div>
@@ -71,7 +71,7 @@
 						@role('user|subscriber|admin')
 							@if (config('settings.image_feature_user') == 'allow')
 								<div class="col-sm">
-									<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->available_dalle_images == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableImages() }} @endif</h4>
+									<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">{{ App\Services\HelperService::userAvailableImages() }}</h4>
 									<h6 class="fs-12">{{ __('DE/SD Images Left') }}</h6>
 								</div>
 							@endif

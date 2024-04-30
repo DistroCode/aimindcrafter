@@ -613,7 +613,7 @@
 							$('#generate-keywords').html('{{ __('Generate Keywords') }}'); 
 
 							if (data['balance']['type'] == 'counted') {
-								animateValue("balance-number", data['balance']['old'], data['balance']['current'], 300);
+								//animateValue("balance-number", data['balance']['old'], data['balance']['current'], 300);
 							}
 
 						}
@@ -678,7 +678,7 @@
 							$('#generate-ideas').html('{{ __('Generate Ideas') }}'); 
 
 							if (data['balance']['type'] == 'counted') {
-								animateValue("balance-number", data['balance']['old'], data['balance']['current'], 300);
+								//animateValue("balance-number", data['balance']['old'], data['balance']['current'], 300);
 							}
 						}
 					},
@@ -748,7 +748,7 @@
 								$('#generate-outlines').html('{{ __('Generate Outlines') }}'); 
 								
 								if (data['balance']['type'] == 'counted') {
-									animateValue("balance-number", data['balance']['old'], data['balance']['current'], 300);
+									//animateValue("balance-number", data['balance']['old'], data['balance']['current'], 300);
 								}
 							
 							} else {
@@ -859,7 +859,7 @@
 							$('#generate-points').html('{{ __('Generate Talking Points') }}'); 
 
 							if (data['balance']['type'] == 'counted') {
-								animateValue("balance-number", data['balance']['old'], data['balance']['current'], 300);
+								//animateValue("balance-number", data['balance']['old'], data['balance']['current'], 300);
 							}
 						} else {
 							toastr.warning('{{ __('Talking points generation is taking longer than expected, please try again') }}');

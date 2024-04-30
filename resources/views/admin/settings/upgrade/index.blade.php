@@ -72,6 +72,24 @@
 
 				<div class="changelog">
 					<div class="changelog-version mt-5">
+						<span class="version-name">{{ __('Version') }} 4.9.2</span> - <span class="fs-14 font-weight-semibold">29.04.2024</span>
+					</div>
+					<div class="changelog-description mt-6">
+						<ul>		 
+							<li><span class="version-update mr-2">Update</span> <span class="text-muted fs-13">User setting default model option added</span></li> 											
+							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Subscription plan deletion feature fixed</span></li>	
+							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Newsletter email update issue fixed</span></li>	
+							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Newsletter email deletion issue fixed</span></li>	
+							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Credit calculatoin issue fixed</span></li>	
+							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Offline payment checkout issue fixed</span></li>	
+						</ul>
+					</div>
+				</div>
+
+				<hr class="mt-6">
+
+				<div class="changelog">
+					<div class="changelog-version mt-5">
 						<span class="version-name">{{ __('Version') }} 4.9.1</span> - <span class="fs-14 font-weight-semibold">27.04.2024</span>
 					</div>
 					<div class="changelog-description mt-6">
@@ -99,7 +117,7 @@
 					</div>
 					<div class="changelog-description mt-6">
 						<ul>		 
-							<li><span class="version-new mr-2">New</span> <span class="text-muted fs-13">Claude 3 added (Anthropic)</span></li>  -
+							<li><span class="version-new mr-2">New</span> <span class="text-muted fs-13">Claude 3 added (Anthropic)</span></li> 
 							<li><span class="version-new mr-2">New</span> <span class="text-muted fs-13">Create & Train Chatbots by Admin via native OpenAI Assistant feature added</span></li> 							
 							<li><span class="version-new mr-2">New</span> <span class="text-muted fs-13">Custom Models for Chat Bots feature added</span></li>  
 							<li><span class="version-new mr-2">New</span> <span class="text-muted fs-13">Custom Models for Chat Bots feature added</span></li>  							

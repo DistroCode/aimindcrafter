@@ -65,7 +65,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'ai_detector_pages',
         'subscription_required',
         'verification_code',
-        'email_opt_in'
+        'email_opt_in',
+        'default_model_template',
+        'default_model_chat',
     ];
 
     /**

@@ -65,7 +65,9 @@ class MidtransWebhookController extends Controller
                     $user->gpt_4_turbo_credits_prepaid = ($user->gpt_4_turbo_credits_prepaid + $plan->gpt_4_turbo_credits_prepaid);
                     $user->gpt_4_credits_prepaid = ($user->gpt_4_credits_prepaid + $plan->gpt_4_credits_prepaid);
                     $user->fine_tune_credits_prepaid = ($user->fine_tune_credits_prepaid + $plan->fine_tune_credits_prepaid);
-                    $user->claude_3_credits_prepaid = ($user->claude_3_credits_prepaid + $plan->claude_3_credits_prepaid);
+                    $user->claude_3_opus_credits_prepaid = ($user->claude_3_opus_credits_prepaid + $plan->claude_3_opus_credits_prepaid);
+                    $user->claude_3_sonnet_credits_prepaid = ($user->claude_3_sonnet_credits_prepaid + $plan->claude_3_sonnet_credits_prepaid);
+                    $user->claude_3_haiku_credits_prepaid = ($user->claude_3_haiku_credits_prepaid + $plan->claude_3_haiku_credits_prepaid);
                     $user->available_dalle_images_prepaid = $user->available_dalle_images_prepaid + $plan->dalle_images;
                     $user->available_sd_images_prepaid = $user->available_sd_images_prepaid + $plan->sd_images;
                     $user->available_chars_prepaid = $user->available_chars_prepaid + $plan->characters;
@@ -78,7 +80,9 @@ class MidtransWebhookController extends Controller
                     $user->gpt_3_turbo_credits = $plan->gpt_3_turbo_credits;
                     $user->gpt_4_turbo_credits = $plan->gpt_4_turbo_credits;
                     $user->gpt_4_credits = $plan->gpt_4_credits;
-                    $user->claude_3_credits = $plan->claude_3_credits;
+                    $user->claude_3_opus_credits = $plan->claude_3_opus_credits;
+                    $user->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
+                    $user->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
                     $user->fine_tune_credits = $plan->fine_tune_credits;
                     $user->available_chars = $plan->characters;
                     $user->available_minutes = $plan->minutes;

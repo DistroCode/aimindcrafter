@@ -13,7 +13,7 @@
 				<h3 class="card-title fs-20 mb-3 super-strong"><i class="fa-solid fa-globe mr-2 text-primary"></i>{{ __('AI Web Chat') }}</h3>
 				<h6 class="mb-0 fs-12 text-muted">{{ __('Turn Your Website into Intelligent Dynamic Conversations') }}</h6>
 				<div class="mb-4" id="balance-status">
-					<span class="fs-11 text-muted pl-3"><i class="fa-sharp fa-solid fa-bolt-lightning mr-2 text-primary"></i>{{ __('Your Balance is') }} <span class="font-weight-semibold" id="balance-number">@if (auth()->user()->gpt_3_turbo_credits == -1) {{ __('Unlimited') }} @else {{ number_format(auth()->user()->gpt_3_turbo_credits + auth()->user()->gpt_3_turbo_credits_prepaid) }} {{ __('GPT 3.5 Turbo') }} {{ __('Words') }}@endif</span></span>
+					<span class="fs-11 text-muted pl-3"><i class="fa-sharp fa-solid fa-bolt-lightning mr-2 text-primary"></i>{{ __('Your Balance is') }} <span class="font-weight-semibold" id="balance-number">@if (auth()->user()->gpt_3_turbo_credits == -1) {{ __('Unlimited') }} @else {{ number_format(auth()->user()->gpt_3_turbo_credits + auth()->user()->gpt_3_turbo_credits_prepaid) }} @endif {{ __('GPT 3.5 Turbo') }} {{ __('Words') }}</span></span>
 				</div>
 			</div>
 
@@ -622,7 +622,7 @@
                 }
 
 				msgerSendBtn.disabled = false
-				calculateCredits();
+				//calculateCredits();
             })
             .catch((e) => {
                 console.log(e);

@@ -32,16 +32,46 @@
 						<h6 class="font-weight-bold fs-12">{{ auth()->user()->job_role }}</h6>
 					</div>
 				</div>
-				<div class="card-footer p-0">								
+				<div class="card-footer p-0">	
 					<div class="row text-center pt-4 pb-4">
 						<div class="col-sm">
-							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->available_words == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableWords() }} @endif</h4>
-							<h6 class="fs-12">{{ __('Words Left') }}</h6>
+							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->gpt_4_turbo_credits == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableGPT4TWords() }} @endif</h4>
+							<h6 class="fs-12">{{ __('GPT 4 Turbo') }} {{ __('Words') }}</h6>
+						</div>
+						<div class="col-sm">
+							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->gpt_4_credits == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableGPT4Words() }} @endif</h4>
+							<h6 class="fs-12">{{ __('GPT 4') }} {{ __('Words') }}</h6>
+						</div>
+					</div>							
+					<div class="row text-center pt-4 pb-4">
+						<div class="col-sm">
+							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->gpt_3_turbo_credits == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableWords() }} @endif</h4>
+							<h6 class="fs-12">{{ __('GPT 3.5 Turbo') }} {{ __('Words') }}</h6>
+						</div>
+						<div class="col-sm">
+							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->fine_tune_credits == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableFineTuneWords() }} @endif</h4>
+							<h6 class="fs-12">{{ __('Fine Tune') }} {{ __('Words') }}</h6>
+						</div>
+					</div>
+					<div class="row text-center pt-4 pb-4">
+						<div class="col-sm">
+							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->claude_3_opus_credits == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableClaudeOpusWords() }} @endif</h4>
+							<h6 class="fs-12">{{ __('Claude 3 Opus') }} {{ __('Words') }}</h6>
+						</div>
+						<div class="col-sm">
+							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->claude_3_sonnet_credits == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableClaudeSonnetWords() }} @endif</h4>
+							<h6 class="fs-12">{{ __('Claude 3 Sonnet') }} {{ __('Words') }}</h6>
+						</div>
+					</div>
+					<div class="row text-center pt-4 pb-4">
+						<div class="col-sm">
+							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->claude_3_haiku_credits == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableClaudeHaikuWords() }} @endif</h4>
+							<h6 class="fs-12">{{ __('Claude 3 Haiku') }} {{ __('Words') }}</h6>
 						</div>
 						@role('user|subscriber|admin')
 							@if (config('settings.image_feature_user') == 'allow')
 								<div class="col-sm">
-									<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->available_dalle_images == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableImages() }} @endif</h4>
+									<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">{{ App\Services\HelperService::userAvailableImages() }}</h4>
 									<h6 class="fs-12">{{ __('DE/SD Images Left') }}</h6>
 								</div>
 							@endif
@@ -169,6 +199,55 @@
 											<option value="{{ $language->language_code }}" data-img="{{ URL::asset($language->language_flag) }}" @if (auth()->user()->default_template_language == $language->language_code) selected @endif> {{ __($language->language) }}</option>
 										@endforeach									
 									</select>
+								</div>
+							</div>
+
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group">	
+									<h6 class="fs-11 mb-2 font-weight-semibold">{{ __('Default AI Model for Templates') }}</h6>								
+									<select id="model" name="default_model_template" class="form-select" >	
+										<option value="gpt-3.5-turbo-0125">{{ __('GPT 3.5 Turbo') }}</option>	
+										@foreach ($models as $model)
+											@if (trim($model) == 'gpt-4')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('GPT 4') }}</option>
+											@elseif (trim($model) == 'gpt-4-0125-preview')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('GPT 4 Turbo') }}</option>
+											@elseif (trim($model) == 'gpt-4-turbo-2024-04-09')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('GPT 4 Turbo with Vision') }}</option>
+											@elseif (trim($model) == 'claude-3-opus-20240229')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('Claude 3 Opus') }}</option>
+											@elseif (trim($model) == 'claude-3-sonnet-20240229')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('Claude 3 Sonnet') }}</option>
+											@elseif (trim($model) == 'claude-3-haiku-20240307')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('Claude 3 Haiku') }}</option>
+											@endif
+											
+										@endforeach									
+									</select>	
+								</div>
+							</div>
+
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group">	
+									<h6 class="fs-11 mb-2 font-weight-semibold">{{ __('Default AI Model for Chatbots') }}</h6>								
+									<select id="model" name="default_model_chat" class="form-select" >	
+										<option value="gpt-3.5-turbo-0125">{{ __('GPT 3.5 Turbo') }}</option>	
+										@foreach ($models as $model)
+											@if (trim($model) == 'gpt-4')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('GPT 4') }}</option>
+											@elseif (trim($model) == 'gpt-4-0125-preview')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('GPT 4 Turbo') }}</option>
+											@elseif (trim($model) == 'gpt-4-turbo-2024-04-09')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('GPT 4 Turbo with Vision') }}</option>
+											@elseif (trim($model) == 'claude-3-opus-20240229')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('Claude 3 Opus') }}</option>
+											@elseif (trim($model) == 'claude-3-sonnet-20240229')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('Claude 3 Sonnet') }}</option>
+											@elseif (trim($model) == 'claude-3-haiku-20240307')
+												<option value="{{ trim($model) }}" @if (trim($model) == auth()->user()->default_model_chat) selected @endif>{{ __('Claude 3 Haiku') }}</option>
+											@endif											
+										@endforeach									
+									</select>	
 								</div>
 							</div>
 						</div>
