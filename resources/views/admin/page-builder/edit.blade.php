@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-md-12 mt-5">
                                 <label for="">Description <span class="text-danger font-weight-bold">*</span></label>
-                                <textarea id="summernote" name="description">{{$page_builder->description ?? ''}}</textarea>
+                                <textarea name="description">{{$page_builder->description ?? ''}}</textarea>
                                 @error('description')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -68,13 +68,28 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="{{asset('plugins/tinymce/tinymce.min.js')}}"></script>
     <script>
-        $(document).ready(function () {
-            $('#summernote').summernote({
-                tabsize: 2,
-                height: 500
-            });
+        if (typeof (base_url) == "undefined") {
+            var base_url = location.protocol + '//' + location.host + '/';
+        }
+        tinymce.init({
+            selector: 'textarea',
+            // plugins: 'bootstrap',
+            // toolbar: ['bootstrap'],
+            // contextmenu: "bootstrap",
+            height : "680",
+            bootstrapConfig: {
+                url: base_url + '{{asset('tinymce')}}',
+                iconFont: 'fontawesome5',
+                imagesPath: '{{asset('tinymce')}}/plugin/assets/images',
+                key: '06yt9N0+bZfFAfwLR9dkdMHqisJpW5B/Z7sJ8g/aRP3phxEOUnfcEBO+LFtTbbmJqSGTyxmb30q6qF0s5jEM11zazuVma7u3OrcYiBQDUxQ='
+            },
+        });
+        document.addEventListener('focusin', (e) => {
+            if (e.target.closest(".tox-tinymce, .tox-tinymce-aux, .moxman-window, .tam-assetmanager-root") !== null) {
+                e.stopImmediatePropagation();
+            }
         });
     </script>
 @endsection

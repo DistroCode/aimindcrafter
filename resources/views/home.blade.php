@@ -109,7 +109,7 @@
                         <div class="col-sm-12 upload-responsive">
                             <div class="text-container text-center">
                                 <h6 class="mb-4 fs-14" data-aos="fade-up" data-aos-delay="50" data-aos-once="true" data-aos-duration="100"><i class="fa-sharp fa-solid fa-sparkles mr-1"></i> {{ __('Meet') }}, {{ config('app.name') }}</span></h6>
-                                <h1 data-aos="fade-up" data-aos-delay="100" data-aos-once="true" data-aos-duration="200">{{ __('Ultimate AI Creator') }}</span></h1>
+                                <h1 data-aos="fade-up" data-aos-delay="100" data-aos-once="true" data-aos-duration="200">{{ __('Ultimate AI Image Creator') }}</span></h1>
                                 <div class="word-container" data-aos="fade-up" data-aos-delay="150" data-aos-once="true" data-aos-duration="300">
                                     <h1 class="ah-headline">
                                       <span class="ah-words-wrapper text-center">

@@ -17,5 +17,8 @@
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.51.0",
         "sass-loader": "^12.1.0"
+    },
+    "dependencies": {
+        "tinymce": "^7.0.1"
     }
 }
