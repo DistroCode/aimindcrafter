@@ -64,11 +64,21 @@
 							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->claude_3_haiku_credits == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableClaudeHaikuWords() }} @endif</h4>
 							<h6 class="fs-12">{{ __('Claude 3 Haiku') }} {{ __('Words') }}</h6>
 						</div>
+						<div class="col-sm">
+							<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">@if (auth()->user()->gemini_pro_credits == -1) {{ __('Unlimited') }} @else {{ App\Services\HelperService::userAvailableGeminiProWords() }} @endif</h4>
+							<h6 class="fs-12">{{ __('Gemini Pro') }} {{ __('Words') }}</h6>
+						</div>
+					</div>
+					<div class="row text-center pt-4 pb-4">
 						@role('user|subscriber|admin')
 							@if (config('settings.image_feature_user') == 'allow')
 								<div class="col-sm">
-									<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">{{ App\Services\HelperService::userAvailableImages() }}</h4>
-									<h6 class="fs-12">{{ __('DE/SD Images Left') }}</h6>
+									<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">{{ App\Services\HelperService::userAvailableDEImages() }}</h4>
+									<h6 class="fs-12">{{ __('Dalle Images Left') }}</h6>
+								</div>
+								<div class="col-sm">
+									<h4 class="mb-3 mt-1 font-weight-800 text-primary fs-16">{{ App\Services\HelperService::userAvailableSDImages() }}</h4>
+									<h6 class="fs-12">{{ __('SD Images Left') }}</h6>
 								</div>
 							@endif
 						@endrole

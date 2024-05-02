@@ -117,9 +117,9 @@
 										<option value='gpt-4' @if ($id->model == 'gpt-4') selected @endif>{{ __('GPT 4') }} ({{ __('8K') }})</option>																																																																																																																																																																																																																																																																																																																																																			
 										<option value='gpt-4-0125-preview' @if ($id->model == 'gpt-4-0125-preview') selected @endif>{{ __('GPT 4 Turbo') }}</option>																																																																																																																											
 										<option value='gpt-4-turbo-2024-04-09' @if ($id->model == 'gpt-4-turbo-2024-04-09') selected @endif>{{ __('GPT 4 Turbo with Vision') }}</option>
-										<option value="claude-3-opus-20240229" @if ($id->model == 'claude-3-opus-20240229') selected @endif>{{ __('Claude 3 Opus') }}</option>											
+										{{-- <option value="claude-3-opus-20240229" @if ($id->model == 'claude-3-opus-20240229') selected @endif>{{ __('Claude 3 Opus') }}</option>											
 										<option value="claude-3-sonnet-20240229" @if ($id->model == 'claude-3-sonnet-20240229') selected @endif>{{ __('Claude 3 Sonnet') }}</option>									
-										<option value="claude-3-haiku-20240307" @if ($id->model == 'claude-3-haiku-20240307') selected @endif>{{ __('Claude 3 Haiku') }}</option>	
+										<option value="claude-3-haiku-20240307" @if ($id->model == 'claude-3-haiku-20240307') selected @endif>{{ __('Claude 3 Haiku') }}</option>	 --}}
 										@foreach ($models as $model)
 											<option value="{{ $model->model }}" @if ($id->model == $model->model) selected @endif> {{ $model->description }} ({{ __('Fine Tune Model')}})</option>
 										@endforeach																																																										

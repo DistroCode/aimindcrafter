@@ -188,7 +188,7 @@ class VideoController extends Controller
             $verify = $this->user->verify_license();
             if($settings->value != $verify['code']){return;}
 
-            $url = 'https://api.stability.ai/v2alpha/generation/image-to-video';
+            $url = 'https://api.stability.ai/v2beta/image-to-video';
             $output = 'a1d1c037d177f38570f2c4772d4402ac';
 
             $image_path = request()->file('image')->getRealPath();
@@ -354,7 +354,7 @@ class VideoController extends Controller
             foreach ($videos as $video) {
                 $id = $video->job_id;
 
-                $url = 'https://api.stability.ai/v2alpha/generation/image-to-video/result/' . $id;
+                $url = 'https://api.stability.ai/v2beta/image-to-video/result/' . $id;
 
                 $ch = curl_init();
             
@@ -369,10 +369,11 @@ class VideoController extends Controller
                 curl_close($ch);
 
                 $response = json_decode($result , true);
+                
 
-                if (isset($response['finishReason'])) {
+                if (isset($response['finish_reason'])) {
 
-                    if ($response['finishReason'] == 'SUCCESS') {
+                    if ($response['finish_reason'] == 'SUCCESS') {
 
                         $name = 'video-' . Str::random(10) . '.mp4';
 
@@ -400,7 +401,7 @@ class VideoController extends Controller
                             Storage::disk('dropbox')->put('images/' . $name, base64_decode($response['video']));
                             $video_url = Storage::disk('dropbox')->url('images/' . $name);
                         }
-
+ 
                         $video->update([
                             'video' => $video_url,
                             'status' => 'completed',
@@ -409,6 +410,7 @@ class VideoController extends Controller
 
                 }
 
+             
             }
         }
 
@@ -542,56 +544,87 @@ class VideoController extends Controller
 
                 switch ($image->storage) {
                     case 'local':
-                        if (Storage::disk('public')->exists($image->image)) {
-                            Storage::disk('public')->delete($image->image);
+                        if (!is_null($image->image)) {
+                            if (Storage::disk('public')->exists($image->image)) {
+                                Storage::disk('public')->delete($image->image);
+                            }
+                        }
+                        if (!is_null($image->video)) {
+                            if (Storage::disk('public')->exists($image->video)) {
+                                Storage::disk('public')->delete($image->video);
+                            }
                         }
                         break;
                     case 'aws':
-                        if (Storage::disk('s3')->exists($image->image)) {
-                            Storage::disk('s3')->delete($image->image);
+                        if (!is_null($image->image)) {
+                            if (Storage::disk('s3')->exists($image->image)) {
+                                Storage::disk('s3')->delete($image->image);
+                            }
                         }
-                        if (Storage::disk('s3')->exists($image->video)) {
-                            Storage::disk('s3')->delete($image->video);
+                        if (!is_null($image->video)) {
+                            if (Storage::disk('s3')->exists($image->video)) {
+                                Storage::disk('s3')->delete($image->video);
+                            }
                         }
                         break;
                     case 'r2':
-                        if (Storage::disk('r2')->exists($image->image)) {
-                            Storage::disk('r2')->delete($image->image);
+                        if (!is_null($image->image)) {
+                            if (Storage::disk('r2')->exists($image->image)) {
+                                Storage::disk('r2')->delete($image->image);
+                            }
                         }
-                        if (Storage::disk('r2')->exists($image->video)) {
-                            Storage::disk('r2')->delete($image->video);
+                        if (!is_null($image->video)) {
+                            if (Storage::disk('r2')->exists($image->video)) {
+                                Storage::disk('r2')->delete($image->video);
+                            }
                         }
                         break;
                     case 'wasabi':
-                        if (Storage::disk('wasabi')->exists($image->image)) {
-                            Storage::disk('wasabi')->delete($image->image);
+                        if (!is_null($image->image)) {
+                            if (Storage::disk('wasabi')->exists($image->image)) {
+                                Storage::disk('wasabi')->delete($image->image);
+                            }
                         }
-                        if (Storage::disk('wasabi')->exists($image->video)) {
-                            Storage::disk('wasabi')->delete($image->video);
+                        if (!is_null($image->video)) {
+                            if (Storage::disk('wasabi')->exists($image->video)) {
+                                Storage::disk('wasabi')->delete($image->video);
+                            }
                         }
                         break;
                     case 'storj':
-                        if (Storage::disk('storj')->exists($image->image)) {
-                            Storage::disk('storj')->delete($image->image);
+                        if (!is_null($image->image)) {
+                            if (Storage::disk('storj')->exists($image->image)) {
+                                Storage::disk('storj')->delete($image->image);
+                            }
                         }
-                        if (Storage::disk('storj')->exists($image->video)) {
-                            Storage::disk('storj')->delete($image->video);
+                        if (!is_null($image->video)) {
+                            if (Storage::disk('storj')->exists($image->video)) {
+                                Storage::disk('storj')->delete($image->video);
+                            }
                         }
                         break;
                     case 'gcp':
-                        if (Storage::disk('gcs')->exists($image->image)) {
-                            Storage::disk('gcs')->delete($image->image);
+                        if (!is_null($image->image)) {
+                            if (Storage::disk('gcs')->exists($image->image)) {
+                                Storage::disk('gcs')->delete($image->image);
+                            }
                         }
-                        if (Storage::disk('gcs')->exists($image->video)) {
-                            Storage::disk('gcs')->delete($image->video);
+                        if (!is_null($image->video)) {
+                            if (Storage::disk('gcs')->exists($image->video)) {
+                                Storage::disk('gcs')->delete($image->video);
+                            }
                         }
                         break;
                     case 'dropbox':
-                        if (Storage::disk('dropbox')->exists($image->image)) {
-                            Storage::disk('dropbox')->delete($image->image);
+                        if (!is_null($image->image)) {
+                            if (Storage::disk('dropbox')->exists($image->image)) {
+                                Storage::disk('dropbox')->delete($image->image);
+                            }
                         }
-                        if (Storage::disk('dropbox')->exists($image->video)) {
-                            Storage::disk('dropbox')->delete($image->video);
+                        if (!is_null($image->video)) {
+                            if (Storage::disk('dropbox')->exists($image->video)) {
+                                Storage::disk('dropbox')->delete($image->video);
+                            }
                         }
                         break;
                     default:

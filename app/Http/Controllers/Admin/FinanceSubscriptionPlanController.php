@@ -361,6 +361,7 @@ class FinanceSubscriptionPlanController extends Controller
                 'claude_3_sonnet_credits' => request('claude_3_sonnet'),
                 'claude_3_haiku_credits' => request('claude_3_haiku'),
                 'fine_tune_credits' => request('fine_tune'),
+                'gemini_pro_credits' => request('gemini_pro'),
             ]); 
                    
             $plan->save();            
@@ -670,6 +671,7 @@ class FinanceSubscriptionPlanController extends Controller
                 'claude_3_sonnet_credits' => request('claude_3_sonnet'),
                 'claude_3_haiku_credits' => request('claude_3_haiku'),
                 'fine_tune_credits' => request('fine_tune'),
+                'gemini_pro_credits' => request('gemini_pro'),
             ]); 
             
             toastr()->success(__('Selected plan has been updated successfully'));
@@ -766,6 +768,10 @@ class FinanceSubscriptionPlanController extends Controller
 
             if (request('claude_3_haiku_check') == 'on') {
                 $user->claude_3_haiku_credits = request('claude_3_haiku');
+            }
+
+            if (request('gemini_pro_check') == 'on') {
+                $user->gemini_pro_credits = request('gemini_pro');
             }
 
             if (request('fine_tune_check') == 'on') {

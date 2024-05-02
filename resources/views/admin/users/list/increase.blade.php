@@ -44,6 +44,7 @@
 										<p class="fs-12 mb-2">{{ __('Available Claude 3 Opus Model Words') }}: <span class="font-weight-bold ml-2">@if ($user->claude_3_opus_credits == -1) {{ __('Unlimited') }} @else {{ number_format($user->claude_3_opus_credits) }} @endif</span></p>
 										<p class="fs-12 mb-2">{{ __('Available Claude 3 Sonnet Model Words') }}: <span class="font-weight-bold ml-2">@if ($user->claude_3_sonnet_credits == -1) {{ __('Unlimited') }} @else {{ number_format($user->claude_3_sonnet_credits) }} @endif</span></p>
 										<p class="fs-12 mb-2">{{ __('Available Claude 3 Haiku Model Words') }}: <span class="font-weight-bold ml-2">@if ($user->claude_3_haiku_credits == -1) {{ __('Unlimited') }} @else {{ number_format($user->claude_3_haiku_credits) }} @endif</span></p>
+										<p class="fs-12 mb-2">{{ __('Available Gemini Pro Model Words') }}: <span class="font-weight-bold ml-2">@if ($user->gemini_pro_credits == -1) {{ __('Unlimited') }} @else {{ number_format($user->gemini_pro_credits) }} @endif</span></p>
 										<p class="fs-12 mb-2">{{ __('Available Dalle Images') }}: <span class="font-weight-bold ml-2">@if ($user->available_dalle_images == -1) {{ __('Unlimited') }} @else {{ number_format($user->available_dalle_images ) }} @endif</span></p>
 										<p class="fs-12 mb-2">{{ __('Available Stable Diffusion Images') }}: <span class="font-weight-bold ml-2">@if ($user->available_sd_images == -1) {{ __('Unlimited') }} @else {{ number_format($user->available_sd_images ) }} @endif</span></p>
 										<p class="fs-12 mb-2">{{ __('Available Characters') }}: <span class="font-weight-bold ml-2">@if ($user->available_chars == -1) {{ __('Unlimited') }} @else {{ number_format($user->available_chars) }} @endif</span></p>
@@ -57,6 +58,7 @@
 										<p class="fs-12 mb-2">{{ __('Available Prepaid Claude 3 Opus Model Words') }}: <span class="font-weight-bold ml-2">{{ number_format($user->claude_3_opus_credits_prepaid) }}</span></p>
 										<p class="fs-12 mb-2">{{ __('Available Prepaid Claude 3 Sonnet Model Words') }}: <span class="font-weight-bold ml-2">{{ number_format($user->claude_3_sonnet_credits_prepaid) }}</span></p>
 										<p class="fs-12 mb-2">{{ __('Available Prepaid Claude 3 Haiku Model Words') }}: <span class="font-weight-bold ml-2">{{ number_format($user->claude_3_haiku_credits_prepaid) }}</span></p>
+										<p class="fs-12 mb-2">{{ __('Available Prepaid Gemini Pro Model Words') }}: <span class="font-weight-bold ml-2">{{ number_format($user->gemini_pro_credits_prepaid) }}</span></p>
 										<p class="fs-12 mb-2">{{ __('Available Prepaid Dalle Images') }}: <span class="font-weight-bold ml-2">{{ number_format($user->available_dalle_images_prepaid) }}</span></p>
 										<p class="fs-12 mb-2">{{ __('Available Prepaid Stable Diffusion Images') }}: <span class="font-weight-bold ml-2">{{ number_format($user->available_sd_images_prepaid) }}</span></p>
 										<p class="fs-12 mb-2">{{ __('Available Prepaid Characters') }}: <span class="font-weight-bold ml-2">{{ number_format($user->available_chars_prepaid) }}</span></p>
@@ -194,6 +196,25 @@
 									<div class="form-group">
 										<label class="form-label fs-12 font-weight-bold"><i class="fa-solid fa-scroll-old mr-2 text-info"></i>{{ __('User Prepaid Claude 3 Haiku Credits') }}</label>
 										<input type="number" class="form-control @error('claude-3-haiku-prepaid') is-danger @enderror" value={{ $user->claude_3_haiku_credits_prepaid }} name="claude-3-haiku-prepaid">								
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-12 col-md-6 mt-3">
+								<div class="input-box mb-4">
+									<div class="form-group">
+										<label class="form-label fs-12 font-weight-bold"><i class="fa-solid fa-scroll-old mr-2 text-info"></i>{{ __('User Gemini Pro Credits') }}</label>
+										<input type="number" class="form-control @error('gemini-pro') is-danger @enderror" value={{ $user->gemini_pro_credits }} name="gemini-pro">
+										<span class="text-muted fs-10">{{ __('Set as -1 for unlimited words') }}</span>									
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-12 col-md-6 mt-3">
+								<div class="input-box mb-4">
+									<div class="form-group">
+										<label class="form-label fs-12 font-weight-bold"><i class="fa-solid fa-scroll-old mr-2 text-info"></i>{{ __('User Prepaid Gemini Pro Credits') }}</label>
+										<input type="number" class="form-control @error('gemini-pro-prepaid') is-danger @enderror" value={{ $user->gemini_pro_credits_prepaid }} name="gemini-pro-prepaid">								
 									</div>
 								</div>
 							</div>

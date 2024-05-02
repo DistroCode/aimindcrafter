@@ -112,18 +112,34 @@ class HelperService
         return $value;
     }
 
+    public static function userAvailableGeminiProWords()
+    {   
+        $value = self::numberFormat(auth()->user()->gemini_pro_credits + auth()->user()->gemini_pro_credits_prepaid);
+        return $value;
+    }
+
     public static function userPlanTotalWords()
     {   
         $value = self::numberFormat(auth()->user()->total_words);
         return $value;
     }
 
-    public static function userAvailableImages()
+    public static function userAvailableDEImages()
     {   
-        if (auth()->user()->available_dalle_images == -1 || auth()->user()->available_sd_images == -1) {
+        if (auth()->user()->available_dalle_images == -1) {
             return __('Unlimited');
         } else {
-            $value = self::numberFormat(auth()->user()->available_dalle_images + auth()->user()->available_dalle_images_prepaid + auth()->user()->available_sd_images + auth()->user()->available_sd_images_prepaid);
+            $value = self::numberFormat(auth()->user()->available_dalle_images + auth()->user()->available_dalle_images_prepaid);
+            return $value;
+        }
+    }
+
+    public static function userAvailableSDImages()
+    {   
+        if (auth()->user()->available_sd_images == -1) {
+            return __('Unlimited');
+        } else {
+            $value = self::numberFormat(auth()->user()->available_sd_images + auth()->user()->available_sd_images_prepaid);
             return $value;
         }
     }
@@ -251,7 +267,7 @@ class HelperService
 
     /**
 	*
-	* Update user word balance
+	* Check if user has sufficient credits for each model
 	* @param - total words generated
 	* @return - confirmation
 	*
@@ -403,6 +419,30 @@ class HelperService
                     } 
                 }
             }
+        } elseif ($model == 'gemini_pro') {
+            if (auth()->user()->gemini_pro_credits != -1) {
+                if ((auth()->user()->gemini_pro_credits + auth()->user()->gemini_pro_credits_prepaid) < $max_tokens) {
+                    if (!is_null(auth()->user()->member_of)) {
+                        if (auth()->user()->member_use_credits_template) {
+                            $member = User::where('id', auth()->user()->member_of)->first();
+                            if (($member->gemini_pro_credits + $member->gemini_pro_credits_prepaid) < $max_tokens) {
+                                $data['status'] = 'error';
+                                $data['message'] = __('Not enough balance to proceed for Gemini Pro model, upgrade or top up');
+                                return $data;
+                            }
+                        } else {
+                            $data['status'] = 'error';
+                            $data['message'] = __('Not enough balance to proceed for Gemini Pro model, upgrade or top up');
+                            return $data;
+                        }
+                        
+                    } else {
+                        $data['status'] = 'error';
+                        $data['message'] = __('Not enough balance to proceed for Gemini Pro model, upgrade or top up');
+                        return $data;
+                    } 
+                }
+            }
         } else {
             if (auth()->user()->fine_tune_credits != -1) {
                 if ((auth()->user()->fine_tune_credits + auth()->user()->fine_tune_credits_prepaid) < $max_tokens) {
@@ -434,7 +474,7 @@ class HelperService
 
      /**
 	*
-	* Update user word balance
+	* Update user word balance for each model
 	* @param - total words generated
 	* @return - confirmation
 	*
@@ -833,6 +873,71 @@ class HelperService
 
             return true;
 
+        } elseif ($model == 'gemini_pro') {
+            if (auth()->user()->gemini_pro_credits != -1) {
+
+                if (Auth::user()->gemini_pro_credits > $words) {
+
+                    $total_words = Auth::user()->gemini_pro_credits - $words;
+                    $user->gemini_pro_credits = ($total_words < 0) ? 0 : $total_words;
+                    $user->update();
+        
+                } elseif (Auth::user()->gemini_pro_credits_prepaid > $words) {
+        
+                    $total_words_prepaid = Auth::user()->gemini_pro_credits_prepaid - $words;
+                    $user->gemini_pro_credits_prepaid = ($total_words_prepaid < 0) ? 0 : $total_words_prepaid;
+                    $user->update();
+        
+                } elseif ((Auth::user()->gemini_pro_credits + Auth::user()->gemini_pro_credits_prepaid) == $words) {
+        
+                    $user->gemini_pro_credits = 0;
+                    $user->gemini_pro_credits_prepaid = 0;
+                    $user->update();
+        
+                } else {
+        
+                    if (!is_null(Auth::user()->member_of)) {
+        
+                        $member = User::where('id', Auth::user()->member_of)->first();
+        
+                        if ($member->gemini_pro_credits > $words) {
+        
+                            $total_words = $member->gemini_pro_credits - $words;
+                            $member->gemini_pro_credits = ($total_words < 0) ? 0 : $total_words;
+                
+                        } elseif ($member->gemini_pro_credits_prepaid > $words) {
+                
+                            $total_words_prepaid = $member->gemini_pro_credits_prepaid - $words;
+                            $member->gemini_pro_credits_prepaid = ($total_words_prepaid < 0) ? 0 : $total_words_prepaid;
+                
+                        } elseif (($member->gemini_pro_credits + $member->gemini_pro_credits_prepaid) == $words) {
+                
+                            $member->gemini_pro_credits = 0;
+                            $member->gemini_pro_credits_prepaid = 0;
+                
+                        } else {
+                            $remaining = $words - $member->gemini_pro_credits;
+                            $member->gemini_pro_credits = 0;
+            
+                            $prepaid_left = $member->gemini_pro_credits_prepaid - $remaining;
+                            $member->gemini_pro_credits_prepaid = ($prepaid_left < 0) ? 0 : $prepaid_left;
+                        }
+        
+                        $member->update();
+        
+                    } else {
+                        $remaining = $words - Auth::user()->gemini_pro_credits;
+                        $user->gemini_pro_credits = 0;
+        
+                        $prepaid_left = Auth::user()->gemini_pro_credits_prepaid - $remaining;
+                        $user->gemini_pro_credits_prepaid = ($prepaid_left < 0) ? 0 : $prepaid_left;
+                        $user->update();
+                    }
+                }
+            } 
+
+            return true;
+
         } else {
             if (auth()->user()->fine_tune_credits != -1) {
 
@@ -902,6 +1007,13 @@ class HelperService
     }
 
 
+    /**
+	*
+	* Register subscriber for lifetime plan
+	* @param - total words generated
+	* @return - confirmation
+	*
+	*/
     public static function registerSubscriber(SubscriptionPlan $id, $gateway, $status, $order, $days)
     {
 
@@ -920,6 +1032,7 @@ class HelperService
             'claude_3_sonnet_credits' => $id->claude_3_sonnet_credits,
             'claude_3_haiku_credits' => $id->claude_3_haiku_credits,
             'fine_tune_credits' => $id->fine_tune_credits,
+            'gemini_pro_credits' => $id->gemini_pro_credits,
             'dalle_images' => $id->dalle_images,
             'sd_images' => $id->sd_images,
             'characters' => $id->characters,
@@ -930,6 +1043,13 @@ class HelperService
     }
 
 
+    /**
+	*
+	* Register prepaid plan payment
+	* @param - total words generated
+	* @return - confirmation
+	*
+	*/
     public static function registerPayment($type, $id, $order, $price, $gateway, $status)
     {
         if ($type == 'prepaid') {
@@ -955,6 +1075,7 @@ class HelperService
         $record_payment->claude_3_sonnet_credits = ($type == 'lifetime') ? $id->claude_3_sonnet_credits : $id->claude_3_sonnet_credits_prepaid;
         $record_payment->claude_3_haiku_credits = ($type == 'lifetime') ? $id->claude_3_haiku_credits : $id->claude_3_haiku_credits_prepaid;
         $record_payment->fine_tune_credits = ($type == 'lifetime') ? $id->fine_tune_credits : $id->fine_tune_credits_prepaid;
+        $record_payment->gemini_pro_credits = ($type == 'lifetime') ? $id->gemini_pro_credits : $id->gemini_pro_credits_prepaid;
         $record_payment->dalle_images = $id->dalle_images;
         $record_payment->sd_images = $id->sd_images;
         $record_payment->characters = $id->characters;
@@ -965,6 +1086,13 @@ class HelperService
     }
 
 
+    /**
+	*
+	* Assign prepaid and lifetime credits
+	* @param - total words generated
+	* @return - confirmation
+	*
+	*/
     public static function registerCredits($type, $id)
     {
         if ($type == 'prepaid') {
@@ -987,6 +1115,7 @@ class HelperService
             $user->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
             $user->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
             $user->fine_tune_credits = $plan->fine_tune_credits;
+            $user->gemini_pro_credits = $plan->gemini_pro_credits;
             $user->available_chars = $plan->characters;
             $user->available_minutes = $plan->minutes;
             $user->member_limit = $plan->team_members;
@@ -1000,10 +1129,140 @@ class HelperService
             $user->claude_3_opus_credits_prepaid = ($user->claude_3_opus_credits_prepaid + $plan->claude_3_opus_credits_prepaid);
             $user->claude_3_sonnet_credits_prepaid = ($user->claude_3_sonnet_credits_prepaid + $plan->claude_3_sonnet_credits_prepaid);
             $user->claude_3_haiku_credits_prepaid = ($user->claude_3_haiku_credits_prepaid + $plan->claude_3_haiku_credits_prepaid);
+            $user->gemini_pro_credits_prepaid = ($user->gemini_pro_credits_prepaid + $plan->gemini_pro_credits_prepaid);
             $user->available_dalle_images_prepaid = $user->available_dalle_images_prepaid + $plan->dalle_images;
             $user->available_sd_images_prepaid = $user->available_sd_images_prepaid + $plan->sd_images;
             $user->available_chars_prepaid = $user->available_chars_prepaid + $plan->characters;
             $user->available_minutes_prepaid = $user->available_minutes_prepaid + $plan->minutes;
+        }
+
+        $user->save();
+    }
+
+
+    /**
+	*
+	* Register monthly yearly subscriber
+	* @param - total words generated
+	* @return - confirmation
+	*
+	*/
+    public static function registerRecurringSubscriber(SubscriptionPlan $id, $gateway, $status, $order)
+    {
+        $duration = ($id->payment_frequency == 'monthly') ? 30 : 365;
+
+        $subscription = Subscriber::create([
+            'active_until' => Carbon::now()->addDays($duration),
+            'user_id' => auth()->user()->id,
+            'plan_id' => $id->id,
+            'status' => $status,
+            'created_at' => now(),
+            'gateway' => $gateway,
+            'frequency' => $id->payment_frequency,
+            'plan_name' => $id->plan_name,
+            'gpt_3_turbo_credits' => $id->gpt_3_turbo_credits,
+            'gpt_4_turbo_credits' => $id->gpt_4_turbo_credits,
+            'gpt_4_credits' => $id->gpt_4_credits,
+            'claude_3_opus_credits' => $id->claude_3_opus_credits,
+            'claude_3_sonnet_credits' => $id->claude_3_sonnet_credits,
+            'claude_3_haiku_credits' => $id->claude_3_haiku_credits,
+            'gemini_pro_credits' => $id->gemini_pro_credits,
+            'fine_tune_credits' => $id->fine_tune_credits,
+            'dalle_images' => $id->dalle_images,
+            'sd_images' => $id->sd_images,
+            'characters' => $id->characters,
+            'minutes' => $id->minutes,
+            'subscription_id' => $order,
+        ]);  
+    }
+
+
+    /**
+	*
+	* Register montly/yearly payments
+	* @param - total words generated
+	* @return - confirmation
+	*
+	*/
+    public static function registerRecurringPayment(SubscriptionPlan $id, $orderID, $gateway, $status, User $user = null)
+    {
+        $tax_value = (config('payment.payment_tax') > 0) ? $tax = $id->price * config('payment.payment_tax') / 100 : 0;
+        $total_value = $tax_value + $id->price;
+
+        $record_payment = new Payment();
+        $record_payment->user_id = ($gateway == 'BankTransfer') ? auth()->user()->id : $user->id;
+        $record_payment->plan_id = $id->id;
+        $record_payment->order_id = $orderID;
+        $record_payment->plan_name = $id->plan_name;
+        $record_payment->frequency = $id->payment_frequency;
+        $record_payment->price = $total_value;
+        $record_payment->currency = $id->currency;
+        $record_payment->gateway = $gateway;
+        $record_payment->status = $status;
+        $record_payment->gpt_3_turbo_credits = $id->gpt_3_turbo_credits;
+        $record_payment->gpt_4_turbo_credits = $id->gpt_4_turbo_credits;
+        $record_payment->gpt_4_credits = $id->gpt_4_credits;
+        $record_payment->claude_3_opus_credits = $id->claude_3_opus_credits;
+        $record_payment->claude_3_sonnet_credits = $id->claude_3_sonnet_credits;
+        $record_payment->claude_3_haiku_credits = $id->claude_3_haiku_credits;
+        $record_payment->gemini_pro_credits = $id->gemini_pro_credits;
+        $record_payment->fine_tune_credits = $id->fine_tune_credits;
+        $record_payment->dalle_images = $id->dalle_images;
+        $record_payment->sd_images = $id->sd_images;
+        $record_payment->characters = $id->characters;
+        $record_payment->minutes = $id->minutes;
+        $record_payment->save();  
+
+        return $record_payment;
+    }
+
+
+     /**
+	*
+	* Assign monthly and yearly credits
+	* @param - total words generated
+	* @return - confirmation
+	*
+	*/
+    public static function registerRecurringCredits(User $user, $type, $id)
+    {
+        if ($type == 'prepaid') {
+            $plan = PrepaidPlan::where('id', $id)->first();
+        } else {
+            $plan = SubscriptionPlan::where('id', $id)->first();
+        }
+
+        if ($type == 'prepaid') {
+            $user->gpt_3_turbo_credits_prepaid = ($user->gpt_3_turbo_credits_prepaid + $plan->gpt_3_turbo_credits_prepaid);
+            $user->gpt_4_turbo_credits_prepaid = ($user->gpt_4_turbo_credits_prepaid + $plan->gpt_4_turbo_credits_prepaid);
+            $user->gpt_4_credits_prepaid = ($user->gpt_4_credits_prepaid + $plan->gpt_4_credits_prepaid);
+            $user->fine_tune_credits_prepaid = ($user->fine_tune_credits_prepaid + $plan->fine_tune_credits_prepaid);
+            $user->claude_3_opus_credits_prepaid = ($user->claude_3_opus_credits_prepaid + $plan->claude_3_opus_credits_prepaid);
+            $user->claude_3_sonnet_credits_prepaid = ($user->claude_3_sonnet_credits_prepaid + $plan->claude_3_sonnet_credits_prepaid);
+            $user->claude_3_haiku_credits_prepaid = ($user->claude_3_haiku_credits_prepaid + $plan->claude_3_haiku_credits_prepaid);
+            $user->gemini_pro_credits_prepaid = ($user->gemini_pro_credits_prepaid + $plan->gemini_pro_credits_prepaid);
+            $user->available_dalle_images_prepaid = $user->available_dalle_images_prepaid + $plan->dalle_images;
+            $user->available_sd_images_prepaid = $user->available_sd_images_prepaid + $plan->sd_images;
+            $user->available_chars_prepaid = $user->available_chars_prepaid + $plan->characters;
+            $user->available_minutes_prepaid = $user->available_minutes_prepaid + $plan->minutes;
+        } else {        
+            $group = ($user->hasRole('admin')) ? 'admin' : 'subscriber';
+            $user->syncRoles($group);   
+            $user->group = $group;
+            $user->plan_id = $plan->id;
+            $user->gpt_3_turbo_credits = $plan->gpt_3_turbo_credits;
+            $user->gpt_4_turbo_credits = $plan->gpt_4_turbo_credits;
+            $user->gpt_4_credits = $plan->gpt_4_credits;
+            $user->claude_3_opus_credits = $plan->claude_3_opus_credits;
+            $user->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
+            $user->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
+            $user->fine_tune_credits = $plan->fine_tune_credits;
+            $user->gemini_pro_credits = $plan->gemini_pro_credits;
+            $user->available_chars = $plan->characters;
+            $user->available_minutes = $plan->minutes;
+            $user->member_limit = $plan->team_members;
+            $user->available_dalle_images = $plan->dalle_images;
+            $user->available_sd_images = $plan->sd_images;
         }
 
         $user->save();

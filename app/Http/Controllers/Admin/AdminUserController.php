@@ -218,6 +218,7 @@ class AdminUserController extends Controller
         $user->claude_3_opus_credits = config('settings.free_claude_3_opus_credits');
         $user->claude_3_sonnet_credits = config('settings.free_claude_3_sonnet_credits');
         $user->claude_3_haiku_credits = config('settings.free_claude_3_haiku_credits');
+        $user->gemini_pro_credits = config('settings.free_gemini_pro_credits');
         $user->available_dalle_images = config('settings.free_tier_dalle_images');
         $user->available_sd_images = config('settings.free_tier_sd_images');
         $user->available_chars_prepaid = config('settings.voiceover_welcome_chars');
@@ -329,6 +330,7 @@ class AdminUserController extends Controller
         $user->claude_3_opus_credits = request('claude-3-opus');
         $user->claude_3_sonnet_credits = request('claude-3-sonnet');
         $user->claude_3_haiku_credits = request('claude-3-haiku');
+        $user->gemini_pro_credits = request('gemini-pro');
         $user->available_dalle_images =  request('dalle-images');
         $user->available_sd_images =  request('sd-images');
         $user->available_chars = request('chars');
@@ -344,6 +346,7 @@ class AdminUserController extends Controller
         $user->claude_3_opus_credits_prepaid = request('claude-3-opus-prepaid');
         $user->claude_3_sonnet_credits_prepaid = request('claude-3-sonnet-prepaid');
         $user->claude_3_haiku_credits_prepaid = request('claude-3-haiku-prepaid');
+        $user->gemini_pro_credits_prepaid = request('gemini-pro-prepaid');
         $user->save();
 
         $words = 0;
@@ -412,6 +415,7 @@ class AdminUserController extends Controller
             'claude_3_opus_credits' => $plan->claude_3_opus_credits,
             'claude_3_sonnet_credits' => $plan->claude_3_sonnet_credits,
             'claude_3_haiku_credits' => $plan->claude_3_haiku_credits,
+            'gemini_pro_credits' => $plan->gemini_pro_credits,
             'fine_tune_credits' => $plan->fine_tune_credits,
             'dalle_images' => $plan->dalle_images,
             'sd_images' => $plan->sd_images,
@@ -434,6 +438,7 @@ class AdminUserController extends Controller
         $user->claude_3_opus_credits = $plan->claude_3_opus_credits;
         $user->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
         $user->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
+        $user->gemini_pro_credits = $plan->gemini_pro_credits;
         $user->available_dalle_images = $plan->dalle_images;
         $user->available_sd_images = $plan->sd_images;
         $user->available_chars = $plan->characters;

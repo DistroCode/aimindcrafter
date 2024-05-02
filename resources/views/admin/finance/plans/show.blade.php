@@ -143,6 +143,12 @@
 						</div>
 						<div class="col-lg-4 col-md-4 col-12">
 							<div class="prepaid-view-box text-center">
+								<h6 class="text-muted fs-12 mb-1">{{ __('Gemini Pro Model Credits') }} </h6>
+								<span class="fs-14 font-weight-semibold">{{ number_format($id->gemini_pro_credits) }}</span>
+							</div>							
+						</div>
+						<div class="col-lg-4 col-md-4 col-12">
+							<div class="prepaid-view-box text-center">
 								<h6 class="text-muted fs-12 mb-1">{{ __('Characters Included') }} </h6>
 								<span class="fs-14 font-weight-semibold">{{ number_format($id->characters) }}</span>
 							</div>							

@@ -388,6 +388,15 @@
 								<option value='832x1216'>832 x 1216px</option>
 								<option value='768x1344'>768 x 1344px</option>
 								<option value='640x1536'>640 x 1536px</option>
+							@elseif (config('settings.image_stable_diffusion_engine') == 'sd3' || config('settings.image_stable_diffusion_engine') == 'sd3-turbo' || config('settings.image_stable_diffusion_engine') == 'core')
+								<option value='1:1'>1:1 ({{ __('Aspect Ratio') }})</option>
+								<option value='2:3'>2:3 ({{ __('Aspect Ratio') }})</option>
+								<option value='3:2'>3:2 ({{ __('Aspect Ratio') }})</option>
+								<option value='4:5'>4:5 ({{ __('Aspect Ratio') }})</option>
+								<option value='5:4'>5:4 ({{ __('Aspect Ratio') }})</option>
+								<option value='9:16'>9:16 ({{ __('Aspect Ratio') }})</option>
+								<option value='16:9'>16:9 ({{ __('Aspect Ratio') }})</option>
+								<option value='9:21'>9:21 ({{ __('Aspect Ratio') }})</option>
 							@endif	
 						@else
 							@if ($sd_model == 'stable-diffusion-v1-6')
@@ -420,6 +429,15 @@
 								<option value='832x1216'>832 x 1216px</option>
 								<option value='768x1344'>768 x 1344px</option>
 								<option value='640x1536'>640 x 1536px</option>
+							@elseif (config('settings.image_stable_diffusion_engine') == 'sd3' || config('settings.image_stable_diffusion_engine') == 'sd3-turbo' || config('settings.image_stable_diffusion_engine') == 'core')
+								<option value='1:1'>1:1 ({{ __('Aspect Ratio') }})</option>
+								<option value='2:3'>2:3 ({{ __('Aspect Ratio') }})</option>
+								<option value='3:2'>3:2 ({{ __('Aspect Ratio') }})</option>
+								<option value='4:5'>4:5 ({{ __('Aspect Ratio') }})</option>
+								<option value='5:4'>5:4 ({{ __('Aspect Ratio') }})</option>
+								<option value='9:16'>9:16 ({{ __('Aspect Ratio') }})</option>
+								<option value='16:9'>16:9 ({{ __('Aspect Ratio') }})</option>
+								<option value='9:21'>9:21 ({{ __('Aspect Ratio') }})</option>
 							@endif	
 						@endif																																																																		
 					</select>

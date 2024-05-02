@@ -134,6 +134,7 @@ class StripeWebhookController extends Controller
                         $record_payment->claude_3_opus_credits = $plan->claude_3_opus_credits;
                         $record_payment->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
                         $record_payment->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
+                        $record_payment->gemini_pro_credits = $plan->gemini_pro_credits;
                         $record_payment->fine_tune_credits = $plan->fine_tune_credits;
                         $record_payment->dalle_images = $plan->dalle_images;
                         $record_payment->sd_images = $plan->sd_images;
@@ -150,6 +151,7 @@ class StripeWebhookController extends Controller
                         $user->claude_3_opus_credits = $plan->claude_3_opus_credits;
                         $user->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
                         $user->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
+                        $user->gemini_pro_credits = $plan->gemini_pro_credits;
                         $user->fine_tune_credits = $plan->fine_tune_credits;
                         $user->available_chars = $plan->characters;
                         $user->available_minutes = $plan->minutes;

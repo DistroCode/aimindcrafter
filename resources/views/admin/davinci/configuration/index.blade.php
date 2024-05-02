@@ -43,7 +43,7 @@
 
 									<div class="col-lg-6 col-md-6 col-sm-12">
 										<div class="input-box">	
-											<h6>{{ __('Default OpenAI Model') }} <span class="text-muted">({{ __('For Admin Group') }})</span><span class="text-required"><i class="fa-solid fa-asterisk"></i></span></h6>
+											<h6>{{ __('Default AI Model') }} <span class="text-muted">({{ __('For Admin Group') }})</span><span class="text-required"><i class="fa-solid fa-asterisk"></i></span></h6>
 											<select id="default-model-admin" name="default-model-admin" class="form-select" data-placeholder="{{ __('Select Default Model') }}:">			
 												<option value="gpt-3.5-turbo-0125" @if ( config('settings.default_model_admin')  == 'gpt-3.5-turbo-0125') selected @endif>{{ __('GPT 3.5 Turbo') }}</option>												
 												<option value="gpt-4" @if ( config('settings.default_model_admin')  == 'gpt-4') selected @endif>{{ __('GPT 4') }}</option>
@@ -52,6 +52,7 @@
 												<option value="claude-3-opus-20240229" @if ( config('settings.default_model_admin')  == 'claude-3-opus-20240229') selected @endif>{{ __('Claude 3 Opus') }}</option>
 												<option value="claude-3-sonnet-20240229" @if ( config('settings.default_model_admin')  == 'claude-3-sonnet-20240229') selected @endif>{{ __('Claude 3 Sonnet') }}</option>
 												<option value="claude-3-haiku-20240307" @if ( config('settings.default_model_admin')  == 'claude-3-haiku-20240307') selected @endif>{{ __('Claude 3 Haiku') }}</option>
+												<option value="gemini_pro" @if ( config('settings.default_model_admin')  == 'gemini_pro') selected @endif>{{ __('Gemini Pro') }}</option>
 												@foreach ($models as $model)
 													<option value="{{ $model->model }}" @if ( config('settings.default_model_admin')  == $model->model) selected @endif>{{ $model->description }} ({{ __('Fine Tune Model')}})</option>
 												@endforeach
@@ -104,7 +105,7 @@
 												<option value='dall-e-3-hd' @if (config('settings.wizard_image_vendor') == 'dall-e-3-hd') selected @endif> {{ __('Dalle 3 HD') }}</option>																															
 												<option value='stable-diffusion-v1-6' @if (config('settings.wizard_image_vendor') == 'stable-diffusion-v1-6') selected @endif> {{ __('Stable Diffusion v1.6') }}</option>																															
 												<option value='stable-diffusion-xl-1024-v1-0' @if (config('settings.wizard_image_vendor') == 'stable-diffusion-xl-1024-v1-0') selected @endif> {{ __('Stable Diffusion XL v1.0') }}</option>																															
-												<option value='stable-diffusion-xl-beta-v2-2-2' @if (config('settings.wizard_image_vendor') == 'stable-diffusion-xl-beta-v2-2-2') selected @endif> {{ __('Stable Diffusion XL v2.2.2 Beta') }}</option>																															
+												<option value='stable-diffusion-xl-beta-v2-2-2' @if (config('settings.wizard_image_vendor') == 'stable-diffusion-xl-beta-v2-2-2') selected @endif> {{ __('Stable Diffusion XL v2.2.2 Beta') }}</option>																																																														
 											</select>
 										</div>
 									</div>
@@ -308,7 +309,7 @@
 
 											<div class="col-lg-6 col-md-6 col-sm-12">
 												<div class="input-box">	
-													<h6>{{ __('Default OpenAI Model for Chat Bots') }} <span class="text-muted">({{ __('For Non-Subscribers') }})</span><span class="text-required"><i class="fa-solid fa-asterisk"></i></span></h6>
+													<h6>{{ __('Default AI Model for Chat Bots') }} <span class="text-muted">({{ __('For Non-Subscribers') }})</span><span class="text-required"><i class="fa-solid fa-asterisk"></i></span></h6>
 													<select id="default-model-user-bot" name="default-model-user-bot" class="form-select">			
 														<option value="gpt-3.5-turbo-0125" @if ( config('settings.default_model_user_bot')  == 'gpt-3.5-turbo-0125') selected @endif>{{ __('GPT 3.5 Turbo') }}</option>												
 														<option value="gpt-4" @if ( config('settings.default_model_user_bot')  == 'gpt-4') selected @endif>{{ __('GPT 4') }}</option>
@@ -317,6 +318,7 @@
 														<option value="claude-3-opus-20240229" @if ( config('settings.default_model_user_bot')  == 'claude-3-opus-20240229') selected @endif>{{ __('Claude 3 Opus') }}</option>
 														<option value="claude-3-sonnet-20240229" @if ( config('settings.default_model_user_bot')  == 'claude-3-sonnet-20240229') selected @endif>{{ __('Claude 3 Sonnet') }}</option>
 														<option value="claude-3-haiku-20240307" @if ( config('settings.default_model_user_bot')  == 'claude-3-haiku-20240307') selected @endif>{{ __('Claude 3 Haiku') }}</option>
+														<option value="gemini_pro" @if ( config('settings.default_model_user_bot')  == 'gemini_pro') selected @endif>{{ __('Gemini Pro') }}</option>
 														@foreach ($models as $model)
 															<option value="{{ $model->model }}" @if ( config('settings.default_model_user_bot')  == $model->model) selected @endif>{{ $model->description }} ({{ __('Fine Tune Model')}})</option>
 														@endforeach
@@ -326,7 +328,7 @@
 
 											<div class="col-lg-6 col-md-6 col-sm-12">
 												<div class="input-box">	
-													<h6>{{ __('Default OpenAI Model for Templates') }} <span class="text-muted">({{ __('For Non-Subscribers') }})</span><span class="text-required"><i class="fa-solid fa-asterisk"></i></span></h6>
+													<h6>{{ __('Default AI Model for Templates') }} <span class="text-muted">({{ __('For Non-Subscribers') }})</span><span class="text-required"><i class="fa-solid fa-asterisk"></i></span></h6>
 													<select id="default-model-user-template" name="default-model-user-template" class="form-select">	
 														<option value="gpt-3.5-turbo-0125" @if ( config('settings.default_model_user_template')  == 'gpt-3.5-turbo-0125') selected @endif>{{ __('GPT 3.5 Turbo') }}</option>												
 														<option value="gpt-4" @if ( config('settings.default_model_user_template')  == 'gpt-4') selected @endif>{{ __('GPT 4') }}</option>
@@ -335,6 +337,7 @@
 														<option value="claude-3-opus-20240229" @if ( config('settings.default_model_user_template')  == 'claude-3-opus-20240229') selected @endif>{{ __('Claude 3 Opus') }}</option>
 														<option value="claude-3-sonnet-20240229" @if ( config('settings.default_model_user_template')  == 'claude-3-sonnet-20240229') selected @endif>{{ __('Claude 3 Sonnet') }}</option>
 														<option value="claude-3-haiku-20240307" @if ( config('settings.default_model_user_template')  == 'claude-3-haiku-20240307') selected @endif>{{ __('Claude 3 Haiku') }}</option>
+														<option value="gemini_pro" @if ( config('settings.default_model_user_template')  == 'gemini_pro') selected @endif>{{ __('Gemini Pro') }}</option>
 														@foreach ($models as $model)
 															<option value="{{ $model->model }}" @if ( config('settings.default_model_user_template')  == $model->model) selected @endif>{{ $model->description }} ({{ __('Fine Tune Model')}})</option>
 														@endforeach
@@ -344,7 +347,7 @@
 
 											<div class="col-lg-6 col-md-6 col-sm-12">
 												<div class="input-box">
-													<h6>{{ __('Available Models') }} <span class="text-muted">({{ __('For Non-Subscribers') }})</span> <i class="ml-3 text-dark fs-13 fa-solid fa-circle-info" data-tippy-content="{{ __('Only listed models will be available for non-subscribers. Make sure your default models above are actually included in this list.') }}."></i></h6>
+													<h6>{{ __('Available AI Models') }} <span class="text-muted">({{ __('For Non-Subscribers') }})</span> <i class="ml-3 text-dark fs-13 fa-solid fa-circle-info" data-tippy-content="{{ __('Only listed models will be available for non-subscribers. Make sure your default models above are actually included in this list.') }}."></i></h6>
 													<select class="form-select" id="models-list" name="models_list[]" multiple>
 														<option value='gpt-3.5-turbo-0125' @foreach ($all_models as $key=>$value) @if($value == 'gpt-3.5-turbo-0125') selected @endif @endforeach>{{ __('GPT 3.5 Turbo') }}</option>																															
 														<option value='gpt-4' @foreach ($all_models as $key=>$value) @if($value == 'gpt-4') selected @endif @endforeach>{{ __('GPT 4') }}</option>																																																																																																																																																																																																																		
@@ -353,6 +356,7 @@
 														<option value="claude-3-opus-20240229" @foreach ($all_models as $key=>$value) @if($value == 'claude-3-opus-20240229') selected @endif @endforeach>{{ __('Claude 3 Opus') }}</option>
 														<option value="claude-3-sonnet-20240229" @foreach ($all_models as $key=>$value) @if($value == 'claude-3-sonnet-20240229') selected @endif @endforeach>{{ __('Claude 3 Sonnet') }}</option>
 														<option value="claude-3-haiku-20240307" @foreach ($all_models as $key=>$value) @if($value == 'claude-3-haiku-20240307') selected @endif @endforeach>{{ __('Claude 3 Haiku') }}</option>
+														<option value="gemini_pro" @foreach ($all_models as $key=>$value) @if($value == 'gemini_pro') selected @endif @endforeach>{{ __('Gemini Pro') }}</option>
 														@foreach ($models as $model)
 															<option value="{{ $model->model }}" @foreach ($all_models as $key=>$value) @if($value == $model->model) selected @endif @endforeach>{{ $model->description }} ({{ __('Fine Tune Model')}})</option>
 														@endforeach
@@ -562,6 +566,16 @@
 														<h6>{{ __('Number of Claude 3 Haiku Credits as a Gift upon Registration') }} <span class="text-muted">({{ __('One Time') }})<span class="text-required"><i class="fa-solid fa-asterisk"></i></span> </span></h6>
 														<div class="form-group">															
 															<input type="number" class="form-control @error('claude-3-haiku') is-danger @enderror" value={{ config('settings.free_claude_3_haiku_credits') }} name="claude-3-haiku">
+															<span class="text-muted fs-10">{{ __('Set as -1 for unlimited words') }}</span>									
+														</div>
+													</div>
+												</div>
+
+												<div class="col-sm-12 col-md-6">
+													<div class="input-box">
+														<h6>{{ __('Number of Gemini Pro Credits as a Gift upon Registration') }} <span class="text-muted">({{ __('One Time') }})<span class="text-required"><i class="fa-solid fa-asterisk"></i></span> </span></h6>
+														<div class="form-group">															
+															<input type="number" class="form-control @error('gemini-pro') is-danger @enderror" value={{ config('settings.free_gemini_pro_credits') }} name="gemini-pro">
 															<span class="text-muted fs-10">{{ __('Set as -1 for unlimited words') }}</span>									
 														</div>
 													</div>
@@ -798,7 +812,10 @@
 													<select id="stable-diffusion-engine" name="stable-diffusion-engine" class="form-select" data-placeholder="{{ __('Set Stable Diffusion Engine ID') }}">
 														<option value='stable-diffusion-v1-6' @if (config('settings.image_stable_diffusion_engine') == 'stable-diffusion-v1-6') selected @endif>{{ __('Stable Diffusion v1.6') }}</option>
 														<option value='stable-diffusion-xl-1024-v1-0' @if (config('settings.image_stable_diffusion_engine') == 'stable-diffusion-xl-1024-v1-0') selected @endif> {{ __('SDXL v1.0') }}</option>																															
-														<option value='stable-diffusion-xl-beta-v2-2-2' @if (config('settings.image_stable_diffusion_engine') == 'stable-diffusion-xl-beta-v2-2-2') selected @endif> {{ __('SDXL v2.2.2 Beta') }}</option>																															
+														<option value='stable-diffusion-xl-beta-v2-2-2' @if (config('settings.image_stable_diffusion_engine') == 'stable-diffusion-xl-beta-v2-2-2') selected @endif> {{ __('SDXL v2.2.2 Beta') }}</option>		
+														<option value='sd3' @if (config('settings.image_stable_diffusion_engine') == 'sd3') selected @endif> {{ __('Stable Diffusion 3.0') }}</option>		
+														<option value='sd3-turbo' @if (config('settings.image_stable_diffusion_engine') == 'sd3-turbo') selected @endif> {{ __('Stable Diffusion 3.0 Turbo') }}</option>		
+														<option value='core' @if (config('settings.image_stable_diffusion_engine') == 'core') selected @endif> {{ __('Stable Image Core') }}</option>		
 													</select>
 												</div>
 											</div>
@@ -1078,12 +1095,38 @@
 											<div class="col-lg-12 col-sm-12 no-gutters">
 												<div class="row">							
 													<div class="col-sm-12">
-														<div class="input-box mb-0">								
+														<div class="input-box">								
 															<h6>{{ __('Anthropic API Key') }} <span class="text-required"><i class="fa-solid fa-asterisk"></i></span></h6>
 															<div class="form-group">							    
 																<input type="text" class="form-control @error('anthropic-api-key') is-danger @enderror" id="anthropic-api-key" name="anthropic-api-key" value="{{ config('anthropic.api_key') }}" autocomplete="off">
 																@error('anthropic-api-key')
 																	<p class="text-danger">{{ $errors->first('anthropic-api-key') }}</p>
+																@enderror												
+															</div> 
+														</div> 
+													</div>
+												</div>												
+											</div>							
+										</div>
+			
+									</div>
+								</div>
+
+								<div class="card shadow-0 mb-7">							
+									<div class="card-body">
+
+										<h6 class="fs-12 font-weight-bold mb-4"><img src="{{URL::asset('img/csp/gcp-sm.png')}}" class="fw-2 mr-2" alt="">{{ __('Google Gemini') }}</h6>
+
+										<div class="row">
+											<div class="col-lg-12 col-sm-12 no-gutters">
+												<div class="row">							
+													<div class="col-sm-12">
+														<div class="input-box">								
+															<h6>{{ __('Gemini API Key') }} <span class="text-required"><i class="fa-solid fa-asterisk"></i></span></h6>
+															<div class="form-group">							    
+																<input type="text" class="form-control @error('gemini-api-key') is-danger @enderror" id="gemini-api-key" name="gemini-api-key" value="{{ config('gemini.api_key') }}" autocomplete="off">
+																@error('gemini-api-key')
+																	<p class="text-danger">{{ $errors->first('gemini-api-key') }}</p>
 																@enderror												
 															</div> 
 														</div> 

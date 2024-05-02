@@ -72,6 +72,26 @@
 
 				<div class="changelog">
 					<div class="changelog-version mt-5">
+						<span class="version-name">{{ __('Version') }} 5.0</span> - <span class="fs-14 font-weight-semibold">02.05.2024</span>
+					</div>
+					<div class="changelog-description mt-6">
+						<ul>	 
+							<li><span class="version-new mr-2">New</span> <span class="text-muted fs-13">Google Gemini Pro added</span></li> 							 
+							<li><span class="version-new mr-2">New</span> <span class="text-muted fs-13">Stable Diffusion 3.0 (SD3) / Stable Diffusion 3.0 Turbo (SD3 Turbo) / Stable Image Core (Core) models added</span></li> 							 
+							<li><span class="version-update mr-2">Update</span> <span class="text-muted fs-13">Ai Video updated to SD v1.1 version</span></li> 	 
+							<li><span class="version-update mr-2">Update</span> <span class="text-muted fs-13">Subscription plan options updated</span></li> 	 
+							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Team member adding issue fixed</span></li> 
+							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">AI Rewrite credit calculation issue fixed</span></li> 
+							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">AI Vision processing issue fixed</span></li> 
+							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Custom template processing issue fixed</span></li> 
+						</ul>
+					</div>
+				</div>
+
+				<hr class="mt-6">
+
+				<div class="changelog">
+					<div class="changelog-version mt-5">
 						<span class="version-name">{{ __('Version') }} 4.9.2</span> - <span class="fs-14 font-weight-semibold">29.04.2024</span>
 					</div>
 					<div class="changelog-description mt-6">
@@ -80,7 +100,7 @@
 							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Subscription plan deletion feature fixed</span></li>	
 							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Newsletter email update issue fixed</span></li>	
 							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Newsletter email deletion issue fixed</span></li>	
-							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Credit calculatoin issue fixed</span></li>	
+							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Credit calculation issue fixed</span></li>	
 							<li><span class="version-fix mr-2">Fix</span> <span class="text-muted fs-13">Offline payment checkout issue fixed</span></li>	
 						</ul>
 					</div>

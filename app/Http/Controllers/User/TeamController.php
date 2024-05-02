@@ -249,7 +249,14 @@ class TeamController extends Controller
         $user->group = 'user';
         $user->email_verified_at = now();
         $user->referral_id = strtoupper(Str::random(15));
-        $user->available_words = config('settings.free_tier_words');
+        $user->gpt_3_turbo_credits = config('settings.free_gpt_3_turbo_credits');
+        $user->gpt_4_turbo_credits = config('settings.free_gpt_4_turbo_credits');
+        $user->gpt_4_credits = config('settings.free_gpt_4_credits');
+        $user->fine_tune_credits = config('settings.free_fine_tune_credits');
+        $user->claude_3_opus_credits = config('settings.free_claude_3_opus_credits');
+        $user->claude_3_sonnet_credits = config('settings.free_claude_3_sonnet_credits');
+        $user->claude_3_haiku_credits = config('settings.free_claude_3_haiku_credits');
+        $user->gemini_pro_credits = config('settings.free_gemini_pro_credits');
         $user->available_dalle_images = config('settings.free_tier_dalle_images');
         $user->available_sd_images = config('settings.free_tier_sd_images');
         $user->available_chars_prepaid = config('settings.voiceover_welcome_chars');

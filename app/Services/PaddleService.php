@@ -84,55 +84,9 @@ class PaddleService
 
         if ($payment->success == true) {
             
-            $duration = $id->payment_frequency;
-            $days = ($duration == 'monthly') ? 31 : 365;
-
-            $subscription = Subscriber::create([
-                'user_id' => auth()->user()->id,
-                'plan_id' => $id->id,
-                'status' => 'Pending',
-                'created_at' => now(),
-                'gateway' => 'Paddle',
-                'frequency' => $id->payment_frequency,
-                'plan_name' => $id->plan_name,
-                'gpt_3_turbo_credits' => $id->gpt_3_turbo_credits,
-                'gpt_4_turbo_credits' => $id->gpt_4_turbo_credits,
-                'gpt_4_credits' => $id->gpt_4_credits,
-                'claude_3_opus_credits' => $id->claude_3_opus_credits,
-                'claude_3_sonnet_credits' => $id->claude_3_sonnet_credits,
-                'claude_3_haiku_credits' => $id->claude_3_haiku_credits,
-                'fine_tune_credits' => $id->fine_tune_credits,
-                'dalle_images' => $id->dalle_images,
-                'sd_images' => $id->sd_images,
-                'characters' => $id->characters,
-                'minutes' => $id->minutes,
-                'subscription_id' => $order_id,
-                'active_until' => Carbon::now()->addDays($days),
-            ]);       
-    
-    
-            $record_payment = new Payment();
-            $record_payment->user_id = auth()->user()->id;
-            $record_payment->order_id = $order_id;
-            $record_payment->plan_id = $id->id;
-            $record_payment->plan_name = $id->plan_name;
-            $record_payment->frequency = $id->payment_frequency;
-            $record_payment->price = $id->price;
-            $record_payment->currency = $id->currency;
-            $record_payment->gateway = 'Paddle';
-            $record_payment->status = 'pending';
-            $record_payment->gpt_3_turbo_credits = $id->gpt_3_turbo_credits;
-            $record_payment->gpt_4_turbo_credits = $id->gpt_4_turbo_credits;
-            $record_payment->gpt_4_credits = $id->gpt_4_credits;
-            $record_payment->claude_3_opus_credits = $id->claude_3_opus_credits;
-            $record_payment->claude_3_sonnet_credits = $id->claude_3_sonnet_credits;
-            $record_payment->claude_3_haiku_credits = $id->claude_3_haiku_credits;
-            $record_payment->fine_tune_credits = $id->fine_tune_credits;
-            $record_payment->dalle_images = $id->dalle_images;
-            $record_payment->sd_images = $id->sd_images;
-            $record_payment->characters = $id->characters;
-            $record_payment->minutes = $id->minutes;
-            $record_payment->save();
+            HelperService::registerRecurringSubscriber($id, 'Paddle', 'Pending', $order_id);
+     
+            HelperService::registerRecurringPayment($id, $order_id, 'Paddle', 'pending');
             
             $redirect = $payment->response->url;
             $plan_name = $id->plan_name;

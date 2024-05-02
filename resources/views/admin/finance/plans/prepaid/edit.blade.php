@@ -169,7 +169,17 @@
 												<span class="text-muted fs-10">{{ __('For AI Templates and AI Chat features') }}</span>
 											</div> 
 										</div> 						
-									</div>								
+									</div>		
+									
+									<div class="col-lg-6 col-md-12 col-sm-12">							
+										<div class="input-box">								
+											<h6>{{ __('Gemini Pro Model Credits') }} <span class="text-required"><i class="fa-solid fa-asterisk"></i></span></h6>
+											<div class="form-group">							    
+												<input type="number" class="form-control" id="gemini_pro" min=0 name="gemini_pro" value="{{ $id->gemini_pro_credits_prepaid }}">
+												<span class="text-muted fs-10">{{ __('For AI Templates and AI Chat features') }}</span>
+											</div> 
+										</div> 						
+									</div>
 
 									<div class="col-lg-6 col-md-12 col-sm-12">							
 										<div class="input-box">								

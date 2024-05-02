@@ -386,8 +386,8 @@
 														</label>
 													</div>
 												@else
-													@foreach ($fine_tunes as $fine_tune)
-														@if (trim($model) == $key => $fine_tune)
+													@foreach ($fine_tunes as $key=>$fine_tune)
+														@if (trim($model) == $fine_tune)
 															<div class="col-md-4 col-sm-12">
 																<input type="radio" id="control_{{ $key }}_f" name="model" onclick="handleClick(this);" value="{{ $fine_tune->model }}" @if ($default_model == $fine_tune->model) checked @endif>
 																<label for="control_{{ $key }}_f">

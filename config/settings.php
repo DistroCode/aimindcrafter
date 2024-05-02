@@ -73,6 +73,7 @@ return [
     'free_claude_3_opus_credits' => env('DAVINCI_SETTINGS_FREE_TIER_CLAUDE_3_OPUS_CREDITS'),
     'free_claude_3_sonnet_credits' => env('DAVINCI_SETTINGS_FREE_TIER_CLAUDE_3_SONNET_CREDITS'),
     'free_claude_3_haiku_credits' => env('DAVINCI_SETTINGS_FREE_TIER_CLAUDE_3_HAIKU_CREDITS'),
+    'free_gemini_pro_credits' => env('DAVINCI_SETTINGS_FREE_TIER_GEMINI_PRO_CREDITS'),
     'free_tier_dalle_images' => env('DAVINCI_SETTINGS_FREE_TIER_DALLE_IMAGES'),
     'free_tier_sd_images' => env('DAVINCI_SETTINGS_FREE_TIER_SD_IMAGES'),
     'image_feature_user' =>env('DAVINCI_SETTINGS_IMAGE_FEATURE_USER'),

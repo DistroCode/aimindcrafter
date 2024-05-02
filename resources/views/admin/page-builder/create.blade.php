@@ -79,9 +79,9 @@
         }
         tinymce.init({
             selector: 'textarea',
-             //plugins: 'bootstrap',
-             //toolbar: ['bootstrap'],
-             //contextmenu: "bootstrap",
+             plugins: 'bootstrap',
+             toolbar: ['bootstrap'],
+             contextmenu: "bootstrap",
             height : "680",
             bootstrapConfig: {
                 url: base_url + '{{asset('tinymce')}}',

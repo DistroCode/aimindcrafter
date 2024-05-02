@@ -131,6 +131,7 @@
 																		 @if ($prepaid->claude_3_opus_credits_prepaid != 0) <p class="fs-12 mt-2 mb-0"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ __('Claude 3 Opus Model Words') }}: <span class="ml-2 font-weight-bold text-primary">{{ number_format($prepaid->claude_3_opus_credits_prepaid) }}</span></p>@endif
 																		 @if ($prepaid->claude_3_sonnet_credits_prepaid != 0) <p class="fs-12 mt-2 mb-0"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ __('Claude 3 Sonnet Model Words') }}: <span class="ml-2 font-weight-bold text-primary">{{ number_format($prepaid->claude_3_sonnet_credits_prepaid) }}</span></p>@endif
 																		 @if ($prepaid->claude_3_haiku_credits_prepaid != 0) <p class="fs-12 mt-2 mb-0"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ __('Claude 3 Haiku Model Words') }}: <span class="ml-2 font-weight-bold text-primary">{{ number_format($prepaid->claude_3_haiku_credits_prepaid) }}</span></p>@endif
+																		 @if ($prepaid->gemini_pro_credits_prepaid != 0) <p class="fs-12 mt-2 mb-0"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ __('Gemini Pro Model Words') }}: <span class="ml-2 font-weight-bold text-primary">{{ number_format($prepaid->gemini_pro_credits_prepaid) }}</span></p>@endif
 																		 @if ($prepaid->dalle_images != 0) <p class="fs-12 mt-2 mb-0"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ __('Dalle Images Included') }}: <span class="ml-2 font-weight-bold text-primary">{{ number_format($prepaid->dalle_images) }}</span></p>@endif
 																		 @if ($prepaid->sd_images != 0) <p class="fs-12 mt-2 mb-0"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ __('SD Images Included') }}: <span class="ml-2 font-weight-bold text-primary">{{ number_format($prepaid->sd_images) }}</span></p>@endif
 																		 @if ($prepaid->characters != 0) <p class="fs-12 mt-2 mb-0"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ __('Characters Included') }}: <span class="ml-2 font-weight-bold text-primary">{{ number_format($prepaid->characters) }}</span></p>@endif																							
@@ -198,7 +199,7 @@
 																		@if ($subscription->gpt_4_credits == -1)
 																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('GPT 4 Model') }} {{ __('words') }}</span></li>
 																		@else	
-																			@if($subscription->gpt_4_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('GPT 4') }} {{ number_format($subscription->gpt_4_turbo_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
+																			@if($subscription->gpt_4_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('GPT 4') }} {{ number_format($subscription->gpt_4_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
 																		@endif
 																		@if ($subscription->gpt_3_turbo_credits == -1)
 																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('GPT 3.5T Model') }} {{ __('words') }}</span></li>
@@ -224,6 +225,11 @@
 																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('Claude 3 Haiku Model') }} {{ __('words') }}</span></li>
 																		@else	
 																			@if($subscription->claude_3_haiku_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Claude 3 Haiku Model') }} {{ number_format($subscription->claude_3_haiku_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
+																		@endif
+																		@if ($subscription->gemini_pro_credits == -1)
+																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('Gemini Pro Model') }} {{ __('words') }}</span></li>
+																		@else	
+																			@if($subscription->gemini_pro_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Gemini Pro Model') }} {{ number_format($subscription->gemini_pro_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
 																		@endif
 																		@if (config('settings.image_feature_user') == 'allow')
 																			@if ($subscription->dalle_image_engine != 'none')
@@ -313,7 +319,7 @@
 																		@if($subscription->team_members) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="plan-feature-text">{{ __('Team Members Option') }}</span></li> @endif
 																		@foreach ( (explode(',', $subscription->plan_features)) as $feature )
 																			@if ($feature)
-																				<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ $feature }}</li>
+																				<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ __($feature) }}</li>
 																			@endif																
 																		@endforeach															
 																	</ul>																
@@ -375,7 +381,7 @@
 																		@if ($subscription->gpt_4_credits == -1)
 																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('GPT 4 Model') }} {{ __('words') }}</span></li>
 																		@else	
-																			@if($subscription->gpt_4_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('GPT 4') }} {{ number_format($subscription->gpt_4_turbo_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
+																			@if($subscription->gpt_4_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('GPT 4') }} {{ number_format($subscription->gpt_4_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
 																		@endif
 																		@if ($subscription->gpt_3_turbo_credits == -1)
 																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('GPT 3.5T Model') }} {{ __('words') }}</span></li>
@@ -401,6 +407,11 @@
 																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('Claude 3 Haiku Model') }} {{ __('words') }}</span></li>
 																		@else	
 																			@if($subscription->claude_3_haiku_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Claude 3 Haiku Model') }} {{ number_format($subscription->claude_3_haiku_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
+																		@endif
+																		@if ($subscription->gemini_pro_credits == -1)
+																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('Gemini Pro Model') }} {{ __('words') }}</span></li>
+																		@else	
+																			@if($subscription->gemini_pro_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Gemini Pro Model') }} {{ number_format($subscription->gemini_pro_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
 																		@endif
 																		@if (config('settings.image_feature_user') == 'allow')
 																			@if ($subscription->dalle_image_engine != 'none')
@@ -490,7 +501,7 @@
 																		@if($subscription->team_members) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="plan-feature-text">{{ __('Team Members Option') }}</span></li> @endif
 																		@foreach ( (explode(',', $subscription->plan_features)) as $feature )
 																			@if ($feature)
-																				<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ $feature }}</li>
+																				<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ __($feature) }}</li>
 																			@endif																
 																		@endforeach															
 																	</ul>																	
@@ -552,7 +563,7 @@
 																		@if ($subscription->gpt_4_credits == -1)
 																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('GPT 4 Model') }} {{ __('words') }}</span></li>
 																		@else	
-																			@if($subscription->gpt_4_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('GPT 4') }} {{ number_format($subscription->gpt_4_turbo_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
+																			@if($subscription->gpt_4_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('GPT 4') }} {{ number_format($subscription->gpt_4_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
 																		@endif
 																		@if ($subscription->gpt_3_turbo_credits == -1)
 																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('GPT 3.5T Model') }} {{ __('words') }}</span></li>
@@ -578,6 +589,11 @@
 																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('Claude 3 Haiku Model') }} {{ __('words') }}</span></li>
 																		@else	
 																			@if($subscription->claude_3_haiku_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Claude 3 Haiku Model') }} {{ number_format($subscription->claude_3_haiku_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
+																		@endif
+																		@if ($subscription->gemini_pro_credits == -1)
+																			<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Unlimited') }}</span> <span class="plan-feature-text">{{ __('Gemini Pro Model') }} {{ __('words') }}</span></li>
+																		@else	
+																			@if($subscription->gemini_pro_credits != 0) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="font-weight-bold">{{ __('Gemini Pro Model') }} {{ number_format($subscription->gemini_pro_credits) }}</span> <span class="plan-feature-text">{{ __('words') }}</span></li> @endif
 																		@endif
 																		@if (config('settings.image_feature_user') == 'allow')
 																			@if ($subscription->dalle_image_engine != 'none')
@@ -667,7 +683,7 @@
 																		@if($subscription->team_members) <li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> <span class="plan-feature-text">{{ __('Team Members Option') }}</span></li> @endif
 																		@foreach ( (explode(',', $subscription->plan_features)) as $feature )
 																			@if ($feature)
-																				<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ $feature }}</li>
+																				<li class="fs-13 mb-3"><i class="fa-solid fa-check fs-14 mr-2 text-success"></i> {{ __($feature) }}</li>
 																			@endif																
 																		@endforeach															
 																	</ul>																	

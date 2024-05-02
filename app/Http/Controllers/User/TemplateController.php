@@ -24,6 +24,8 @@ use App\Models\BrandVoice;
 use App\Models\FineTuneModel;
 use App\Services\HelperService;
 use WpAi\Anthropic\Facades\Anthropic;
+use Gemini\Laravel\Facades\Gemini;
+use Exception;
 
 
 class TemplateController extends Controller
@@ -770,6 +772,26 @@ class TemplateController extends Controller
                     }
 
 
+                } elseif ($model == 'gemini_pro') { 
+                    try {
+
+                        $stream = Gemini::geminiPro()->streamGenerateContent($prompt);
+
+                        foreach ($stream as $response) {
+                            $clean = str_replace(["\r\n", "\r", "\n"], "<br/>", $response->text());
+                            $text .= $response->text();
+                            echo 'data: ' . $clean ."\n\n";
+                            ob_flush();
+                            flush();
+                        }
+                        
+                    } catch (Exception $e) {
+                        echo 'data: ' . $e->getMessage() ."\n\n";
+                        ob_flush();
+                        flush();
+                        \Log::info($e->getMessage());
+                    }
+
                 } else {
                     $results = OpenAI::chat()->createStreamed([
                         'model' => $model,
@@ -1490,18 +1512,6 @@ class TemplateController extends Controller
         $fields = json_encode($template->fields, true);
         $limit = $this->settings();
 
-        # Apply proper model based on role and subsciption
-        if (auth()->user()->group == 'user') {
-            $models = explode(',', config('settings.free_tier_models'));
-        } elseif (!is_null(auth()->user()->plan_id)) {
-            $plan = SubscriptionPlan::where('id', auth()->user()->plan_id)->first();
-            $models = explode(',', $plan->model);
-        } else {            
-            $models = explode(',', config('settings.free_tier_models'));
-        }
-
-        $fine_tunes = FineTuneModel::all();
-        $default_model = auth()->user()->default_model_template;
         $brands = BrandVoice::where('user_id', auth()->user()->id)->get();
 
         if (!is_null(auth()->user()->plan_id)) {
@@ -1526,7 +1536,7 @@ class TemplateController extends Controller
             }
         }
 
-        return view('user.templates.custom-template', compact('languages', 'template', 'favorite', 'workbooks', 'limit', 'fields', 'brands', 'brand_feature', 'internet_feature', 'models', 'fine_tunes', 'default_model'));
+        return view('user.templates.custom-template', compact('languages', 'template', 'favorite', 'workbooks', 'limit', 'fields', 'brands', 'brand_feature', 'internet_feature'));
     }
 
 
@@ -1544,18 +1554,6 @@ class TemplateController extends Controller
         $fields = json_decode($template->fields, true);
         $limit = $this->settings();
 
-        # Apply proper model based on role and subsciption
-        if (auth()->user()->group == 'user') {
-            $models = explode(',', config('settings.free_tier_models'));
-        } elseif (!is_null(auth()->user()->plan_id)) {
-            $plan = SubscriptionPlan::where('id', auth()->user()->plan_id)->first();
-            $models = explode(',', $plan->model);
-        } else {            
-            $models = explode(',', config('settings.free_tier_models'));
-        }
-
-        $fine_tunes = FineTuneModel::all();
-        $default_model = auth()->user()->default_model_template;
         $brands = BrandVoice::where('user_id', auth()->user()->id)->get();
 
         if (!is_null(auth()->user()->plan_id)) {
@@ -1580,7 +1578,7 @@ class TemplateController extends Controller
             }
         }
 
-        return view('user.templates.original-template', compact('languages', 'template', 'favorite', 'workbooks', 'limit', 'fields', 'brands', 'brand_feature', 'internet_feature', 'models', 'fine_tunes', 'default_model'));
+        return view('user.templates.original-template', compact('languages', 'template', 'favorite', 'workbooks', 'limit', 'fields', 'brands', 'brand_feature', 'internet_feature'));
     }
 
 

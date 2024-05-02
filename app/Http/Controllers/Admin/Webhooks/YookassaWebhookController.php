@@ -79,6 +79,7 @@ class YookassaWebhookController extends Controller
                     $user->claude_3_opus_credits_prepaid = ($user->claude_3_opus_credits_prepaid + $plan->claude_3_opus_credits_prepaid);
                     $user->claude_3_sonnet_credits_prepaid = ($user->claude_3_sonnet_credits_prepaid + $plan->claude_3_sonnet_credits_prepaid);
                     $user->claude_3_haiku_credits_prepaid = ($user->claude_3_haiku_credits_prepaid + $plan->claude_3_haiku_credits_prepaid);
+                    $user->gemini_pro_credits_prepaid = ($user->gemini_pro_credits_prepaid + $plan->gemini_pro_credits_prepaid);
                     $user->available_dalle_images_prepaid = $user->available_dalle_images_prepaid + $plan->dalle_images;
                     $user->available_sd_images_prepaid = $user->available_sd_images_prepaid + $plan->sd_images;
                     $user->available_chars_prepaid = $user->available_chars_prepaid + $plan->characters;
@@ -94,6 +95,7 @@ class YookassaWebhookController extends Controller
                     $user->claude_3_opus_credits = $plan->claude_3_opus_credits;
                     $user->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
                     $user->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
+                    $user->gemini_pro_credits = $plan->gemini_pro_credits;
                     $user->fine_tune_credits = $plan->fine_tune_credits;
                     $user->available_chars = $plan->characters;
                     $user->available_minutes = $plan->minutes;

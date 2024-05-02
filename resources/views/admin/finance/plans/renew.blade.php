@@ -185,6 +185,27 @@
 							</div>
 
 							<div class="col-md-6 col-sm-12">							
+								<div class="prepaid-view-box p-4">
+									<div class="input-box">
+										<div class="form-group mt-3">
+											<label class="custom-switch">
+												<input type="checkbox" name="gemini_pro_check" class="custom-switch-input">
+												<span class="custom-switch-indicator"></span>
+												<span class="ml-2 text-muted">{{ __('Include in renewal') }}</span>
+											</label>
+										</div>
+									</div>							
+									<div class="input-box mb-0">							
+										<h6>{{ __('Gemini Pro Model Credits') }}</h6>
+										<div class="form-group">							    
+											<input type="number" class="form-control" id="gemini_pro" name="gemini_pro" value="{{ $id->gemini_pro_credits }}" placeholder="0">
+											<span class="text-muted fs-10">{{ __('Set as -1 for unlimited words') }}. ({{ __('1 credit = 1 word') }}).</span>
+										</div> 
+									</div>
+								</div> 						
+							</div>
+
+							<div class="col-md-6 col-sm-12">							
 								<div class="prepaid-view-box p-4">	
 									<div class="input-box">
 										<div class="form-group mt-3">

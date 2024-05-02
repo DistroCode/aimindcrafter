@@ -42,6 +42,7 @@ class Subscriber extends Model
         'claude_3_sonnet_credits',
         'claude_3_haiku_credits',
         'fine_tune_credits',
+        'gemini_pro_credits',
     ];
 
 

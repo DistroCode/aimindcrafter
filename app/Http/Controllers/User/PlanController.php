@@ -204,6 +204,7 @@ class PlanController extends Controller
         $record_payment->claude_3_opus_credits = $plan->claude_3_opus_credits;
         $record_payment->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
         $record_payment->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
+        $record_payment->gemini_pro_credits = $plan->gemini_pro_credits;
         $record_payment->fine_tune_credits = $plan->fine_tune_credits;
         $record_payment->characters = $plan->characters;
         $record_payment->minutes = $plan->minutes;
@@ -222,6 +223,7 @@ class PlanController extends Controller
             'claude_3_opus_credits' => $plan->claude_3_opus_credits,
             'claude_3_sonnet_credits' => $plan->claude_3_sonnet_credits,
             'claude_3_haiku_credits' => $plan->claude_3_haiku_credits,
+            'gemini_pro_credits' => $plan->gemini_pro_credits,
             'fine_tune_credits' => $plan->fine_tune_credits,
             'characters' => $plan->characters,
             'minutes' => $plan->minutes,
@@ -241,6 +243,7 @@ class PlanController extends Controller
         $user->claude_3_opus_credits = $plan->claude_3_opus_credits;
         $user->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
         $user->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
+        $user->gemini_pro_credits = $plan->gemini_pro_credits;
         $user->fine_tune_credits = $plan->fine_tune_credits;
         $user->available_chars = $plan->characters;
         $user->available_minutes = $plan->minutes;

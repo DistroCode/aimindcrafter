@@ -87,6 +87,7 @@ class DavinciConfigController extends Controller
             $this->storeConfiguration('DAVINCI_SETTINGS_FREE_TIER_CLAUDE_3_OPUS_CREDITS', request('claude-3-opus'));
             $this->storeConfiguration('DAVINCI_SETTINGS_FREE_TIER_CLAUDE_3_SONNET_CREDITS', request('claude-3-sonnet'));
             $this->storeConfiguration('DAVINCI_SETTINGS_FREE_TIER_CLAUDE_3_HAIKU_CREDITS', request('claude-3-haiku'));
+            $this->storeConfiguration('DAVINCI_SETTINGS_FREE_TIER_GEMINI_PRO_CREDITS', request('gemini-pro'));
             $this->storeConfiguration('DAVINCI_SETTINGS_FREE_TIER_DALLE_IMAGES', request('free-tier-dalle-images'));
             $this->storeConfiguration('DAVINCI_SETTINGS_FREE_TIER_SD_IMAGES', request('free-tier-sd-images'));
             $this->storeConfiguration('DAVINCI_SETTINGS_IMAGE_SERVICE_VENDOR', request('image-vendor'));
@@ -319,6 +320,7 @@ class DavinciConfigController extends Controller
 
             $this->storeConfiguration('OPENAI_SECRET_KEY', request('secret-key'));
             $this->storeConfiguration('ANTHROPIC_API_KEY', request('anthropic-api-key'));
+            $this->storeConfiguration('GEMINI_API_KEY', request('gemini-api-key'));
             $this->storeConfiguration('STABLE_DIFFUSION_API_KEY', request('stable-diffusion-key'));
             $this->storeConfiguration('DAVINCI_SETTINGS_SD_KEY_USAGE', request('sd-key-usage'));
             $this->storeConfiguration('DAVINCI_SETTINGS_OPENAI_KEY_USAGE', request('openai-key-usage'));

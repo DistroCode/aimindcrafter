@@ -289,6 +289,16 @@
 
 									<div class="col-md-6 col-sm-12">							
 										<div class="input-box">								
+											<h6>{{ __('Gemini Pro Model Credits') }} <span class="text-required"><i class="fa-solid fa-asterisk"></i></span> <span class="text-muted ml-3">({{ __('Renewed Monthly') }})</span></h6>
+											<div class="form-group">							    
+												<input type="number" class="form-control" id="gemini_pro" name="gemini_pro" value="{{ old('gemini_pro') }}" placeholder="0">
+												<span class="text-muted fs-10">{{ __('Each text generation task counts output words created') }}. {{ __('Set as -1 for unlimited words') }}. ({{ __('1 credit = 1 word') }}).</span>
+											</div> 
+										</div> 						
+									</div>
+
+									<div class="col-md-6 col-sm-12">							
+										<div class="input-box">								
 											<h6>{{ __('Characters Included') }} <span class="text-required"><i class="fa-solid fa-asterisk"></i></span> <span class="text-muted ml-3">({{ __('Renewed Monthly') }})</span></h6>
 											<div class="form-group">							    
 												<input type="number" class="form-control" id="characters" name="characters" value="{{ old('characters') }}" placeholder="0">
@@ -657,6 +667,7 @@
 												<option value='claude-3-opus-20240229'>{{ __('Claude 3 Opus') }}</option>																																																																																																																											
 												<option value='claude-3-sonnet-20240229'>{{ __('Claude 3 Sonnet') }}</option>																																																																																																																											
 												<option value='claude-3-haiku-20240307'>{{ __('Claude 3 Haiku') }}</option>																																																																																																																											
+												<option value='gemini_pro'>{{ __('Gemini Pro') }}</option>																																																																																																																											
 												@foreach ($models as $model)
 													<option value="{{ $model->model }}"> {{ $model->description }} ({{ __('Fine Tune Model')}})</option>
 												@endforeach
@@ -675,6 +686,7 @@
 												<option value='claude-3-opus-20240229'>{{ __('Claude 3 Opus') }}</option>																																																																																																																											
 												<option value='claude-3-sonnet-20240229'>{{ __('Claude 3 Sonnet') }}</option>																																																																																																																											
 												<option value='claude-3-haiku-20240307'>{{ __('Claude 3 Haiku') }}</option>																																																																																																																											
+												<option value='gemini_pro'>{{ __('Gemini Pro') }}</option>																																																																																																																											
 												@foreach ($models as $model)
 													<option value="{{ $model->model }}"> {{ $model->description }} ({{ __('Fine Tune Model')}})</option>
 												@endforeach
@@ -755,7 +767,10 @@
 													<option value='stable-diffusion-v1-6'>{{ __('Stable Diffusion v1.6') }}</option>																															
 													<option value='stable-diffusion-xl-beta-v2-2-2'> {{ __('Stable Diffusion v2.2.2-XL Beta') }}</option>																															
 													<option value='stable-diffusion-xl-1024-v0-9'> {{ __('SDXL v0.9') }}</option>																															
-													<option value='stable-diffusion-xl-1024-v1-0'> {{ __('SDXL v1.0') }}</option>																																																														
+													<option value='stable-diffusion-xl-1024-v1-0'> {{ __('SDXL v1.0') }}</option>	
+													<option value='sd3'> {{ __('Stable Diffusion 3.0') }}</option>		
+													<option value='sd3-turbo'> {{ __('Stable Diffusion 3.0 Turbo') }}</option>		
+													<option value='core'> {{ __('Stable Image Core') }}</option>																																																													
 												</select>
 											</div>
 										</div>

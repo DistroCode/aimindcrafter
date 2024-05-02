@@ -115,9 +115,9 @@
 										<option value='gpt-4'>{{ __('GPT 4') }} ({{ __('8K') }})</option>																																																																																																																																																																																																																																																																																																																																																			
 										<option value='gpt-4-0125-preview'>{{ __('GPT 4 Turbo') }}</option>																																																																																																																											
 										<option value='gpt-4-turbo-2024-04-09'>{{ __('GPT 4 Turbo with Vision') }}</option>										
-										<option value="claude-3-opus-20240229">{{ __('Claude 3 Opus') }}</option>											
+										{{-- <option value="claude-3-opus-20240229">{{ __('Claude 3 Opus') }}</option>											
 										<option value="claude-3-sonnet-20240229">{{ __('Claude 3 Sonnet') }}</option>									
-										<option value="claude-3-haiku-20240307">{{ __('Claude 3 Haiku') }}</option>																																																																																																																																																																																						
+										<option value="claude-3-haiku-20240307">{{ __('Claude 3 Haiku') }}</option>																																																																																																																																																																																						 --}}
 										@foreach ($models as $model)
 											<option value="{{ $model->model }}"> {{ $model->description }} ({{ __('Fine Tune Model')}})</option>
 										@endforeach																																																										

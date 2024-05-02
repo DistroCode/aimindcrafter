@@ -363,6 +363,7 @@ class FinanceController extends Controller
                 $user->claude_3_opus_credits = $id->claude_3_opus_credits;
                 $user->claude_3_sonnet_credits = $id->claude_3_sonnet_credits;
                 $user->claude_3_haiku_credits = $id->claude_3_haiku_credits;
+                $user->gemini_pro_credits = $id->gemini_pro_credits;
                 $user->fine_tune_credits = $id->fine_tune_credits;
                 $user->available_sd_images = $id->sd_images;
                 $user->available_dalle_images = $id->dalle_images;
@@ -382,6 +383,7 @@ class FinanceController extends Controller
                 $user->claude_3_opus_credits_prepaid = ($user->claude_3_opus_credits_prepaid + $id->claude_3_opus_credits_prepaid);
                 $user->claude_3_sonnet_credits_prepaid = ($user->claude_3_sonnet_credits_prepaid + $id->claude_3_sonnet_credits_prepaid);
                 $user->claude_3_haiku_credits_prepaid = ($user->claude_3_haiku_credits_prepaid + $id->claude_3_haiku_credits_prepaid);
+                $user->gemini_pro_credits_prepaid = ($user->gemini_pro_credits_prepaid + $id->gemini_pro_credits_prepaid);
                 $user->available_sd_images_prepaid = ($user->available_sd_images_prepaid + $id->sd_images);
                 $user->available_dalle_images_prepaid = ($user->available_dalle_images_prepaid + $id->dalle_images);
                 $user->available_chars_prepaid = ($user->available_chars_prepaid + $id->characters);

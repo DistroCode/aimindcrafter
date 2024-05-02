@@ -78,6 +78,7 @@ class SocialAuthController extends Controller
                     $new_user->claude_3_opus_credits = config('settings.free_claude_3_opus_credits');
                     $new_user->claude_3_sonnet_credits = config('settings.free_claude_3_sonnet_credits');
                     $new_user->claude_3_haiku_credits = config('settings.free_claude_3_haiku_credits');
+                    $user->gemini_pro_credits = config('settings.free_gemini_pro_credits');
                     $new_user->available_dalle_images = config('settings.free_tier_dalle_images');
                     $new_user->available_sd_images = config('settings.free_tier_sd_images');
                     $new_user->available_chars = config('settings.voiceover_welcome_chars');

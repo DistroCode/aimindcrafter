@@ -11,6 +11,7 @@ use App\Models\SubscriptionPlan;
 use App\Models\Payment;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Services\HelperService;
 
 use KingFlamez\Rave\Facades\Rave as Flutterwave;
 
@@ -61,45 +62,9 @@ class FlutterwaveWebhookController extends Controller
                         }
                     }
 
-                    $record_payment = new Payment();
-                    $record_payment->user_id = $user->id;
-                    $record_payment->plan_id = $plan->id;
-                    $record_payment->order_id = $subscription->plan_id;
-                    $record_payment->plan_name = $plan->plan_name;
-                    $record_payment->price = $total_price;
-                    $record_payment->currency = $plan->currency;
-                    $record_payment->gateway = 'Flutterwave';
-                    $record_payment->frequency = $plan->payment_frequency;
-                    $record_payment->status = 'completed';
-                    $record_payment->gpt_3_turbo_credits = $plan->gpt_3_turbo_credits;
-                    $record_payment->gpt_4_turbo_credits = $plan->gpt_4_turbo_credits;
-                    $record_payment->gpt_4_credits = $plan->gpt_4_credits;
-                    $record_payment->claude_3_opus_credits = $plan->claude_3_opus_credits;
-                    $record_payment->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
-                    $record_payment->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
-                    $record_payment->fine_tune_credits = $plan->fine_tune_credits;
-                    $record_payment->dalle_images = $plan->dalle_images;
-                    $record_payment->sd_images = $plan->sd_images;
-                    $record_payment->save();
-                    
-                    $group = ($user->hasRole('admin')) ? 'admin' : 'subscriber';
+                    HelperService::registerRecurringPayment($plan, $subscription->plan_id, 'Flutterwave', 'completed', $user);
 
-                    $user->syncRoles($group);    
-                    $user->group = $group;
-                    $user->plan_id = $plan->id;
-                    $user->gpt_3_turbo_credits = $plan->gpt_3_turbo_credits;
-                    $user->gpt_4_turbo_credits = $plan->gpt_4_turbo_credits;
-                    $user->gpt_4_credits = $plan->gpt_4_credits;
-                    $user->claude_3_opus_credits = $plan->claude_3_opus_credits;
-                    $user->claude_3_sonnet_credits = $plan->claude_3_sonnet_credits;
-                    $user->claude_3_haiku_credits = $plan->claude_3_haiku_credits;
-                    $user->fine_tune_credits = $plan->fine_tune_credits;
-                    $user->available_chars = $plan->characters;
-                    $user->available_minutes = $plan->minutes;
-                    $user->member_limit = $plan->team_members;
-                    $user->available_dalle_images = $plan->dalle_images;
-                    $user->available_sd_images = $plan->sd_images;
-                    $user->save();       
+                    HelperService::registerRecurringCredits($user, 'monthly', $plan->id);
 
                     event(new PaymentProcessed($user));
                 }

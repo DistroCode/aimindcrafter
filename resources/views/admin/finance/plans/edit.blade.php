@@ -292,6 +292,16 @@
 
 									<div class="col-md-6 col-sm-12">							
 										<div class="input-box">								
+											<h6>{{ __('Gemini Pro Model Credits') }} <span class="text-required"><i class="fa-solid fa-asterisk"></i></span> <span class="text-muted ml-3">({{ __('Renewed Monthly') }})</span></h6>
+											<div class="form-group">							    
+												<input type="number" class="form-control" id="gemini_pro" name="gemini_pro" value="{{ $id->gemini_pro_credits }}" placeholder="0">
+												<span class="text-muted fs-10">{{ __('Each text generation task counts output words created') }}. {{ __('Set as -1 for unlimited words') }}. ({{ __('1 credit = 1 word') }}).</span>
+											</div> 
+										</div> 						
+									</div>
+
+									<div class="col-md-6 col-sm-12">							
+										<div class="input-box">								
 											<h6>{{ __('Characters Included') }} <span class="text-required"><i class="fa-solid fa-asterisk"></i></span> <span class="text-muted ml-3">({{ __('Renewed Monthly') }})</span></h6>
 											<div class="form-group">							    
 												<input type="number" class="form-control" id="characters" name="characters" value="{{ $id->characters }}" placeholder="0">
@@ -658,6 +668,7 @@
 												<option value='claude-3-opus-20240229' @foreach ($model_templates as $key=>$value) @if($value == 'claude-3-opus-20240229') selected @endif @endforeach>{{ __('Claude 3 Opus') }}</option>																																																																																																																											
 												<option value='claude-3-sonnet-20240229' @foreach ($model_templates as $key=>$value) @if($value == 'claude-3-sonnet-20240229') selected @endif @endforeach>{{ __('Claude 3 Sonnet') }}</option>																																																																																																																											
 												<option value='claude-3-haiku-20240307' @foreach ($model_templates as $key=>$value) @if($value == 'claude-3-haiku-20240307') selected @endif @endforeach>{{ __('Claude 3 Haiku') }}</option>																																																																																																																										
+												<option value='gemini_pro' @foreach ($model_templates as $key=>$value) @if($value == 'gemini_pro') selected @endif @endforeach>{{ __('Gemini Pro') }}</option>																																																																																																																										
 												@foreach ($models as $model)
 													<option value="{{ $model->model }}" @foreach ($model_templates as $key=>$value) @if($value == $model->model) selected @endif @endforeach>{{ $model->description }} ({{ __('Fine Tune Model')}})</option>
 												@endforeach
@@ -676,6 +687,7 @@
 												<option value='claude-3-opus-20240229' @foreach ($model_chats as $key=>$value) @if($value == 'claude-3-opus-20240229') selected @endif @endforeach>{{ __('Claude 3 Opus') }}</option>																																																																																																																											
 												<option value='claude-3-sonnet-20240229' @foreach ($model_chats as $key=>$value) @if($value == 'claude-3-sonnet-20240229') selected @endif @endforeach>{{ __('Claude 3 Sonnet') }}</option>																																																																																																																											
 												<option value='claude-3-haiku-20240307' @foreach ($model_chats as $key=>$value) @if($value == 'claude-3-haiku-20240307') selected @endif @endforeach>{{ __('Claude 3 Haiku') }}</option>
+												<option value='gemini_pro' @foreach ($model_chats as $key=>$value) @if($value == 'gemini_pro') selected @endif @endforeach>{{ __('Gemini Pro') }}</option>
 												@foreach ($models as $model)
 													<option value="{{ $model->model }}" @foreach ($model_chats as $key=>$value) @if($value == $model->model) selected @endif @endforeach>{{ $model->description }} ({{ __('Fine Tune Model')}})</option>
 												@endforeach
@@ -758,6 +770,9 @@
 													<option value='stable-diffusion-xl-beta-v2-2-2' @if ($id->sd_image_engine == 'stable-diffusion-xl-beta-v2-2-2') selected @endif> {{ __('Stable Diffusion v2.2.2-XL Beta') }}</option>																															
 													<option value='stable-diffusion-xl-1024-v0-9' @if ($id->sd_image_engine == 'stable-diffusion-xl-1024-v0-9') selected @endif> {{ __('SDXL v0.9') }}</option>																															
 													<option value='stable-diffusion-xl-1024-v1-0' @if ($id->sd_image_engine == 'stable-diffusion-xl-1024-v1-0') selected @endif> {{ __('SDXL v1.0') }}</option>																																																														
+													<option value='sd3' @if ($id->sd_image_engine == 'sd3') selected @endif> {{ __('Stable Diffusion 3.0') }}</option>		
+													<option value='sd3-turbo' @if ($id->sd_image_engine == 'sd3-turbo') selected @endif> {{ __('Stable Diffusion 3.0 Turbo') }}</option>		
+													<option value='core' @if ($id->sd_image_engine == 'core') selected @endif> {{ __('Stable Image Core') }}</option>	
 												</select>
 											</div>
 										</div>

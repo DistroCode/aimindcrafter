@@ -20,7 +20,7 @@ class ChatAssistantController extends Controller
     {
         $this->client = \OpenAI::factory()
             ->withApiKey(config('services.openai.key'))
-            ->withHttpHeader('OpenAI-Beta', 'assistants=v1')
+            ->withHttpHeader('OpenAI-Beta', 'assistants=v2')
             ->make();
     }
     /**
@@ -145,6 +145,7 @@ class ChatAssistantController extends Controller
         $retrieval = (isset($request->retrieval)) ? true : false;
         $code = (isset($request->code)) ? true : false;
         $has_file = false;
+        $uploaded_file = '';
 
         if ($retrieval && $code) {
             $tools = [
@@ -189,7 +190,7 @@ class ChatAssistantController extends Controller
 
             $file = request()->file('file');
 
-            $imageTypes = ['c', 'cpp', 'docx', 'html', 'java', 'md', 'php', 'pptx', 'py', 'rb', 'tex', 'css', 'js', 'gif', 'tar', 'ts', 'xlsx', 'xml', 'zip', 'pdf', 'csv', 'txt', 'json'];
+            $imageTypes = ['c', 'cpp', 'doc', 'docx', 'html', 'java', 'md', 'php', 'pptx', 'py', 'rb', 'tex', 'js', 'ts', 'pdf', 'txt', 'json'];
             if (!in_array(Str::lower($file->getClientOriginalExtension()), $imageTypes)) {
                 toastr()->error(__('Uploaded training files must be in pdf, csv, json, jsonl or txt formats'));
                 return redirect()->back();
@@ -202,6 +203,8 @@ class ChatAssistantController extends Controller
                     'file' => fopen($path, 'r'),
                 ]);
 
+                \Log::info(json_encode($uploaded_file));
+
                 $has_file = true;
             }
         
@@ -212,9 +215,6 @@ class ChatAssistantController extends Controller
                 'instructions' => $request->instructions,
                 'name' => $request->name,
                 'tools' => $tools,
-                'file_ids' => [
-                    $uploaded_file->id
-                ],
                 'model' => $request->model,
             ]);
         } else {

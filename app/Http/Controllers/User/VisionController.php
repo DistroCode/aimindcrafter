@@ -22,6 +22,7 @@ use App\Models\Setting;
 use GuzzleHttp\Client;
 use App\Models\BrandVoice;
 use App\Models\FineTuneModel;
+use App\Services\HelperService;
 
 
 class VisionController extends Controller
@@ -137,31 +138,13 @@ class VisionController extends Controller
 
 
         # Check if user has sufficient words available to proceed
-        if (auth()->user()->available_words != -1) {
-            $balance = auth()->user()->available_words + auth()->user()->available_words_prepaid;
-            $words = count(explode(' ', ($request->input('message'))));
-            if ((auth()->user()->available_words + auth()->user()->available_words_prepaid) < $words) {
-                if (!is_null(auth()->user()->member_of)) {
-                    if (auth()->user()->member_use_credits_chat) {
-                        $member = User::where('id', auth()->user()->member_of)->first();
-                        if (($member->available_words + $member->available_words_prepaid) < $words) {
-                            $status = 'error';
-                            $message = __('Not enough word balance to proceed, subscribe or top up your word balance and try again');
-                            return response()->json(['status' => $status, 'message' => $message]);
-                        }
-                    } else {
-                        $status = 'error';
-                        $message = __('Not enough word balance to proceed, subscribe or top up your word balance and try again');
-                        return response()->json(['status' => $status, 'message' => $message]);
-                    }
-                
-                } else {
-                    $status = 'error';
-                    $message = __('Not enough word balance to proceed, subscribe or top up your word balance and try again');
-                    return response()->json(['status' => $status, 'message' => $message]);
-                } 
+        $verify = HelperService::creditCheck($request->model, 20);
+        if (isset($verify['status'])) {
+            if ($verify['status'] == 'error') {
+                return response()->json(['status' => $verify['status'], 'message' => $verify['message']]);
             }
         }
+ 
 
         $settings = Setting::where('name', 'license')->first(); 
         $uploading = new UserService();
@@ -182,9 +165,11 @@ class VisionController extends Controller
         session()->put('service', $request->service);
 
         if (auth()->user()->available_words != -1) {
-            return response()->json(['status' => 'success', 'old'=> $balance, 'current' => ($balance - $words), 'chat_id' => $chat->id]);
+           // return response()->json(['status' => 'success', 'old'=> $balance, 'current' => ($balance - $words), 'chat_id' => $chat->id]);
+           return response()->json(['status' => 'success', 'chat_id' => $chat->id]);
         } else {
-            return response()->json(['status' => 'success', 'old'=> 0, 'current' => 0, 'chat_id' => $chat->id]);
+           // return response()->json(['status' => 'success', 'old'=> 0, 'current' => 0, 'chat_id' => $chat->id]);
+           return response()->json(['status' => 'success', 'chat_id' => $chat->id]);
         }
 
 	}
@@ -244,6 +229,7 @@ class VisionController extends Controller
             $chat_conversation = ChatConversation::where('conversation_id', $conversation_id)->first();  
             $chat_message = ChatHistory::where('id', $chat_id)->first();
             $text = "";
+            $model = '';
 
             if (is_null($chat_message->images)) {
                 
@@ -258,8 +244,10 @@ class VisionController extends Controller
                     }
                 }
 
+                $model = $chat_message->model;
+
                 $opts = [
-                    'model' => $chat_message->model,
+                    'model' => $model,
                     'messages' => $messages,
                     'temperature' => 1.0,
                     'frequency_penalty' => 0,
@@ -293,13 +281,14 @@ class VisionController extends Controller
                 $url = 'https://api.openai.com/v1/chat/completions';
             
                 try {
+                    $model = 'gpt-4-turbo-2024-04-09';
                     $response = $guzzle_client->post($url,
                     [
                         'headers' => [
                             'Authorization' => 'Bearer ' . $openai_key,
                         ],
                         'json' => [
-                            'model' => 'gpt-4-vision-preview',
+                            'model' => $model,
                             'messages' => [
                                 [
                                 'role' => 'user',
@@ -358,11 +347,11 @@ class VisionController extends Controller
                     
                 }
             }
-
+\Log::info($model);
 
             # Update credit balance
             $words = count(explode(' ', ($text)));
-            $this->updateBalance($words);  
+            HelperService::updateBalance($words, $model);   
 
             $current_chat = ChatHistory::where('id', $chat_id)->first();
             $current_chat->response = $text;
@@ -397,84 +386,6 @@ class VisionController extends Controller
 
         return response()->json(['status' => 'success']);
 	}
-
-
-
-    /**
-	*
-	* Update user word balance
-	* @param - total words generated
-	* @return - confirmation
-	*
-	*/
-    public function updateBalance($words) {
-
-        $user = User::find(Auth::user()->id);
-
-        if (auth()->user()->available_words != -1) {
-        
-            if (Auth::user()->available_words > $words) {
-
-                $total_words = Auth::user()->available_words - $words;
-                $user->available_words = ($total_words < 0) ? 0 : $total_words;
-                $user->update();
-
-            } elseif (Auth::user()->available_words_prepaid > $words) {
-
-                $total_words_prepaid = Auth::user()->available_words_prepaid - $words;
-                $user->available_words_prepaid = ($total_words_prepaid < 0) ? 0 : $total_words_prepaid;
-                $user->update();
-
-            } elseif ((Auth::user()->available_words + Auth::user()->available_words_prepaid) == $words) {
-
-                $user->available_words = 0;
-                $user->available_words_prepaid = 0;
-                $user->update();
-
-            } else {
-
-                if (!is_null(Auth::user()->member_of)) {
-
-                    $member = User::where('id', Auth::user()->member_of)->first();
-
-                    if ($member->available_words > $words) {
-
-                        $total_words = $member->available_words - $words;
-                        $member->available_words = ($total_words < 0) ? 0 : $total_words;
-            
-                    } elseif ($member->available_words_prepaid > $words) {
-            
-                        $total_words_prepaid = $member->available_words_prepaid - $words;
-                        $member->available_words_prepaid = ($total_words_prepaid < 0) ? 0 : $total_words_prepaid;
-            
-                    } elseif (($member->available_words + $member->available_words_prepaid) == $words) {
-            
-                        $member->available_words = 0;
-                        $member->available_words_prepaid = 0;
-            
-                    } else {
-                        $remaining = $words - $member->available_words;
-                        $member->available_words = 0;
-        
-                        $prepaid_left = $member->available_words_prepaid - $remaining;
-                        $member->available_words_prepaid = ($prepaid_left < 0) ? 0 : $prepaid_left;
-                    }
-
-                    $member->update();
-
-                } else {
-                    $remaining = $words - Auth::user()->available_words;
-                    $user->available_words = 0;
-
-                    $prepaid_left = Auth::user()->available_words_prepaid - $remaining;
-                    $user->available_words_prepaid = ($prepaid_left < 0) ? 0 : $prepaid_left;
-                    $user->update();
-                }  
-            }
-        }
-
-        return true;
-    }
 
 
     /**

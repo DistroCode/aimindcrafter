@@ -27,6 +27,10 @@ use App\Models\Setting;
 use GuzzleHttp\Client;
 use App\Services\HelperService;
 use WpAi\Anthropic\Facades\Anthropic;
+use Gemini\Laravel\Facades\Gemini;
+use Gemini\Enums\Role;
+use Gemini\Data\Content;
+use Michelf\Markdown;
 use Exception;
 
 
@@ -272,6 +276,7 @@ class ChatController extends Controller
 
         $company = session()->get('company');
         $service = session()->get('service');
+        $user_prompt = session()->get('message');
         $prompt = '';
 
         # Add Brand information
@@ -329,7 +334,7 @@ class ChatController extends Controller
             }
         }
 
-        return response()->stream(function () use($conversation_id, $googlePrompt, $prompt) {
+        return response()->stream(function () use($conversation_id, $googlePrompt, $prompt, $user_prompt) {
 
             if (config('settings.personal_openai_api') == 'allow') {
                 $open_ai = new OpenAi(auth()->user()->personal_openai_key);        
@@ -430,6 +435,44 @@ class ChatController extends Controller
                         
                     }
 
+                } elseif ($model == 'gemini_pro') {
+
+                    try {
+                        // $chat = Gemini::chat()
+                        //     ->startChat(history: [
+                        //         Content::parse(part: $main_prompt, role: Role::USER),
+                        //         Content::parse(part: 'Sure, I will follow your provided guide during answering your question.', role: Role::MODEL)
+                        //     ]);
+
+                        // $response = $chat->sendMessage($user_prompt);
+                        // $text = $response->text();
+                        // \Log::info($response->text());
+                        // $clean = str_replace(["**", "***"], "", $response->text());
+                        // echo 'data: ' . $response->text();
+                        $prompt = $main_prompt . ' Based on previous information about your role, answer this users question: ' . $user_prompt; 
+                        $response = Gemini::geminiPro()->generateContent($prompt);
+
+                        //foreach ($stream as $response) {
+                            //$clean = str_replace(["**", "***"], " ", $response->text());
+                            $clean = Markdown::defaultTransform($response->text());
+                            $text = $clean;
+                            echo 'data: ' . $clean;
+                            // ob_flush();
+                            // flush();
+                       // }
+                    } catch (\Exception $exception) {
+                        echo "data: " . $exception->getMessage();
+                        echo "\n\n";
+                        ob_flush();
+                        flush();
+                        echo 'data: [DONE]';
+                        echo "\n\n";
+                        ob_flush();
+                        flush();
+                        usleep(50000);
+                    }
+                    
+                    
 
                 } else {
 

@@ -35,5 +35,6 @@ class PrepaidPlan extends Model
         'claude_3_sonnet_credits_prepaid',
         'claude_3_haiku_credits_prepaid',
         'fine_tune_credits_prepaid',
+        'gemini_pro_credits_prepaid',
     ];
 }
